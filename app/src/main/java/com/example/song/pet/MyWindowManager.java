@@ -3,6 +3,7 @@ package com.example.song.pet;
 
 import android.content.Context;
 import android.graphics.PixelFormat;
+import android.os.Build;
 import android.view.Gravity;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
@@ -63,7 +64,11 @@ public class MyWindowManager {
             smallWindow = new FloatWindowSmallView(context);
             if (smallWindowParams == null) {
                 smallWindowParams = new LayoutParams();
-                smallWindowParams.type = LayoutParams.TYPE_PHONE;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    smallWindowParams.type = LayoutParams.TYPE_APPLICATION_OVERLAY;
+                } else {
+                    smallWindowParams.type = LayoutParams.TYPE_PHONE;
+                }
                 smallWindowParams.format = PixelFormat.RGBA_8888;
                 smallWindowParams.flags = LayoutParams.FLAG_NOT_TOUCH_MODAL
                         | LayoutParams.FLAG_NOT_FOCUSABLE;
@@ -91,7 +96,11 @@ public class MyWindowManager {
             MSGWindow = new FloatWindowMSGView(context,text,isWeChat,isLeft);
             if (MSGWindowParams == null) {
                 MSGWindowParams = new LayoutParams();
-                MSGWindowParams.type = LayoutParams.TYPE_PHONE;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    MSGWindowParams.type = LayoutParams.TYPE_APPLICATION_OVERLAY;
+                } else {
+                    MSGWindowParams.type = LayoutParams.TYPE_PHONE;
+                }
                 MSGWindowParams.format = PixelFormat.RGBA_8888;
                 MSGWindowParams.flags = LayoutParams.FLAG_NOT_TOUCH_MODAL
                         | LayoutParams.FLAG_NOT_FOCUSABLE;
@@ -150,7 +159,11 @@ public class MyWindowManager {
                 bigWindowParams = new LayoutParams();
                 bigWindowParams.x = screenWidth / 2 - FloatWindowBigView.viewWidth / 2;
                 bigWindowParams.y = screenHeight / 2 - FloatWindowBigView.viewHeight / 2;
-                bigWindowParams.type = LayoutParams.TYPE_PHONE;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    bigWindowParams.type = LayoutParams.TYPE_APPLICATION_OVERLAY;
+                } else {
+                    bigWindowParams.type = LayoutParams.TYPE_PHONE;
+                }
                 bigWindowParams.format = PixelFormat.RGBA_8888;
                 bigWindowParams.gravity = Gravity.LEFT | Gravity.TOP;
                 bigWindowParams.width = FloatWindowBigView.viewWidth;

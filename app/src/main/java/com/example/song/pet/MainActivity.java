@@ -96,6 +96,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
             }).show();//在按键响应事件中显示此对话框
         }
+        if(!Settings.canDrawOverlays(getApplicationContext())){
+            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+            intent.setData(Uri.parse("package:" + getPackageName()));
+            startActivityForResult(intent,100);
+        }
 
 
 
