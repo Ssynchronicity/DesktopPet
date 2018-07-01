@@ -143,7 +143,7 @@ public class ThirdFragment extends Fragment {
     {
         third_toolbarivew = (ToolbarView)rootView.findViewById(R.id.third_toolbarview);
         third_toolbarivew.setToolbar_text("桌面宠物");
-        third_toolbarivew.settoolbar_more_Visibility(View.GONE);
+        // third_toolbarivew.settoolbar_more_Visibility(View.GONE);
         third_toolbarivew.settoolbar_relative_Visibility(View.GONE);
 
         Switch_show = (Switch)rootView.findViewById(R.id.Switch_show);

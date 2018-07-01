@@ -16,11 +16,12 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
+import com.example.song.pet.view.NoScrollViewPager;
 import java.util.ArrayList;
 
 
@@ -30,7 +31,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private SecondFragment fg2;
     private ThirdFragment fg3;
 
-    private ViewPager mPager;
+    private NoScrollViewPager mPager;
     private ArrayList<Fragment> fragmentsList;
     private MyFragmentPagerAdapter mAdapter;
 
@@ -114,8 +115,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 //        });
     }
 
+
     private void initViews() {
-        mPager = (ViewPager) findViewById(R.id.mPager);
+        mPager = (NoScrollViewPager) findViewById(R.id.mPager);
         first_fragment = (RelativeLayout) findViewById(R.id.first_fragment);
         second_fragment = (RelativeLayout) findViewById(R.id.second_fragment);
         third_fragment = (RelativeLayout) findViewById(R.id.third_fragment);
@@ -126,6 +128,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         text2 = (TextView) findViewById(R.id.text2);
         text3 = (TextView) findViewById(R.id.text3);
         mPager.setAdapter(mAdapter);
+
+//        mPager.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View view, MotionEvent motionEvent) {
+//                return true;
+//            }
+//        });
         mPager.setOnPageChangeListener(this);
         first_fragment.setOnClickListener(this);
         second_fragment.setOnClickListener(this);
@@ -185,16 +194,19 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 image1.setImageResource(R.drawable.home_focus);
                 text1.setTextColor(Color.parseColor("#02a9f5"));
                 mPager.setCurrentItem(0);
+                mPager.setNoScroll(false);
                 break;
             case R.id.second_fragment:case 1:
                 image2.setImageResource(R.drawable.clock_focus);
                 text2.setTextColor(Color.parseColor("#02a9f5"));
                 mPager.setCurrentItem(1);
+                mPager.setNoScroll(true);
                 break;
             case R.id.third_fragment:case 2:
                 image3.setImageResource(R.drawable.setting_focus);
                 text3.setTextColor(Color.parseColor("#02a9f5"));
                 mPager.setCurrentItem(2);
+                mPager.setNoScroll(false);
                 break;
             default:
                 break;
