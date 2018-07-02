@@ -16,4 +16,7 @@
     <string name="title_paired_devices">已配对的设备</string>
     <string name="title_other_devices">可用设备</string>
     <string name="button_scan">搜索设备</string>
+
+    <string name="res_server_root_path">http://139.199.9.244:8082/media/static/DesktopPet/</string>
+    <string name="download_test_res">gumi.zip</string>
 </resources>

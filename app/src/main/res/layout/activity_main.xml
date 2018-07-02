@@ -1,97 +1,145 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"  
-   android:layout_width="fill_parent"
-   android:layout_height="fill_parent"
-   android:orientation="vertical" >
-   <com.example.song.pet.view.NoScrollViewPager
-       android:layout_width="wrap_content"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+
+    android:orientation="vertical">
+
+    <com.example.song.pet.view.NoScrollViewPager
+        android:id="@+id/mPager"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_gravity="center"
-       android:id="@+id/mPager"
-       android:layout_weight="1"
-       android:flipInterval="30"
-       android:persistentDrawingCache="animation"/>
-      
-   <LinearLayout 
-       android:layout_width="fill_parent"
-       android:layout_height="60dp"
-       android:orientation="horizontal">
-       <RelativeLayout 
-           android:layout_width="0dp"
-           android:layout_height="match_parent"
-           android:id="@+id/first_fragment"
-           android:layout_weight="1">
-           <LinearLayout 
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:layout_centerHorizontal="true"
-               android:orientation="vertical">
-               <ImageView
-                   android:id="@+id/image1"
-                   android:layout_marginTop="15dp"
-                   android:layout_width="35dp"
-                   android:layout_height="25dp"
-                   android:layout_gravity="center_horizontal"
-                   android:src="@drawable/home" />
-               <TextView
-                   android:id="@+id/text1"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:text="宠物"
-                   android:layout_gravity="center_horizontal"
-                   android:textColor="#7597B3" />
-           </LinearLayout>
-       </RelativeLayout>
-              <RelativeLayout 
-           android:layout_width="0dp"
-           android:layout_height="match_parent"
-           android:id="@+id/second_fragment"
-           android:layout_weight="1">
-           <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:layout_centerHorizontal="true"
-               android:orientation="vertical" >
-               <ImageView
-                   android:id="@+id/image2"
-                   android:layout_marginTop="10dp"
-                   android:layout_width="30dp"
-                   android:layout_height="30dp"
-                   android:layout_gravity="center_horizontal"
-                   android:src="@drawable/clock" />
-               <TextView
-                   android:id="@+id/text2"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_gravity="center_horizontal"
-                   android:text="提醒"
-                   android:textColor="#7597B3" />
-           </LinearLayout>
-       </RelativeLayout>
-                 <RelativeLayout 
-           android:layout_width="0dp"
-           android:layout_height="match_parent"
-           android:id="@+id/third_fragment"
-           android:layout_weight="1">
-           <LinearLayout 
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:layout_centerHorizontal="true"
-               android:orientation="vertical">
-               <ImageView
-                   android:id="@+id/image3"
-                   android:layout_marginTop="15dp"
-                   android:layout_width="35dp"
-                   android:layout_height="25dp"
-                   android:layout_gravity="center_horizontal"
-                   android:src="@drawable/setting" />
-               <TextView
-                   android:id="@+id/text3"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_gravity="center_horizontal"
-                   android:text="设置"
-                   android:textColor="#7597B3" />
-           </LinearLayout>
-       </RelativeLayout>
-   </LinearLayout>
- </LinearLayout>
+        android:layout_weight="1"
+        android:flipInterval="30"
+        android:persistentDrawingCache="animation" />
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="60dp"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<RelativeLayout-->
+            <!--android:id="@+id/first_fragment"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1">-->
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:orientation="vertical">-->
+
+                <!--<ImageView-->
+                    <!--android:id="@+id/image1"-->
+                    <!--android:layout_width="35dp"-->
+                    <!--android:layout_height="25dp"-->
+                    <!--android:layout_gravity="center_horizontal"-->
+                    <!--android:layout_marginTop="15dp"-->
+                    <!--android:src="@drawable/home" />-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/text1"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_gravity="center_horizontal"-->
+                    <!--android:text="宠物"-->
+                    <!--android:textColor="#7597B3" />-->
+            <!--</LinearLayout>-->
+        <!--</RelativeLayout>-->
+
+        <!--<RelativeLayout-->
+            <!--android:id="@+id/second_fragment"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1">-->
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:orientation="vertical">-->
+
+                <!--<ImageView-->
+                    <!--android:id="@+id/image2"-->
+                    <!--android:layout_width="30dp"-->
+                    <!--android:layout_height="30dp"-->
+                    <!--android:layout_gravity="center_horizontal"-->
+                    <!--android:layout_marginTop="10dp"-->
+                    <!--android:src="@drawable/clock" />-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/text2"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_gravity="center_horizontal"-->
+                    <!--android:text="提醒"-->
+                    <!--android:textColor="#7597B3" />-->
+            <!--</LinearLayout>-->
+        <!--</RelativeLayout>-->
+
+        <!--<RelativeLayout-->
+            <!--android:id="@+id/third_fragment"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1">-->
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:orientation="vertical">-->
+
+                <!--<ImageView-->
+                    <!--android:id="@+id/image3"-->
+                    <!--android:layout_width="35dp"-->
+                    <!--android:layout_height="25dp"-->
+                    <!--android:layout_gravity="center_horizontal"-->
+                    <!--android:layout_marginTop="15dp"-->
+                    <!--android:src="@drawable/setting" />-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/text3"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_gravity="center_horizontal"-->
+                    <!--android:text="设置"-->
+                    <!--android:textColor="#7597B3" />-->
+            <!--</LinearLayout>-->
+        <!--</RelativeLayout>-->
+    <!--</LinearLayout>-->
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/navbar_bg"
+        >
+        <ImageView
+            android:id="@+id/first_fragment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:srcCompat = "@drawable/pet_light"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/second_fragment"/>
+        <ImageView
+            android:id="@+id/second_fragment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:srcCompat = "@drawable/home_light"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/first_fragment"
+            app:layout_constraintRight_toLeftOf="@id/third_fragment"/>
+        <ImageView
+            android:id="@+id/third_fragment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:srcCompat = "@drawable/setting_light"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/second_fragment"
+            app:layout_constraintRight_toRightOf="parent"/>
+    </android.support.constraint.ConstraintLayout>
+</LinearLayout>

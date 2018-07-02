@@ -2,25 +2,28 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.song.pet">
 
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="8" />
+
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-
-
-    <uses-sdk
-        android:minSdkVersion="8"
-        android:targetSdkVersion="8" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
-            android:name="com.example.song.pet.MainActivity"
-            android:label="@string/app_name" >
+            android:name=".MainActivity"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,39 +31,39 @@
             </intent-filter>
         </activity>
 
-        <service android:name="com.example.song.pet.FloatWindowService" />
-
-        <service android:name="com.example.song.pet.NotificationService"
+        <service android:name=".FloatWindowService" />
+        <service
+            android:name=".NotificationService"
             android:label="@string/app_name"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
-
             <intent-filter>
-
                 <action android:name="android.service.notification.NotificationListenerService" />
-
             </intent-filter>
-
         </service>
-        <activity android:name="com.example.song.pet.SettingActivity" >
-        </activity>
-        <activity android:name="com.example.song.pet.AlarmActivity" >
-        </activity>
 
-        <activity android:name="com.example.song.pet.Bluetooth.DeviceListActivity"
+        <activity android:name=".SettingActivity"></activity>
+        <activity android:name=".AlarmActivity"></activity>
+        <activity
+            android:name=".Bluetooth.DeviceListActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/select_device"
-            android:theme="@android:style/Theme.Holo.Light.Dialog"
-            android:configChanges="orientation|keyboardHidden" >
-        </activity>
-        <receiver android:name="com.example.song.pet.StartupReceiver">
+            android:theme="@android:style/Theme.Holo.Light.Dialog"></activity>
+
+        <receiver android:name=".StartupReceiver">
             <intent-filter>
+
                 <!-- 指定接收的Broadcast Action -->
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <!-- 指定Action的种类，即Android系统启动后第一个运行的应用程序 -->
                 <category android:name="android.intent.category.HOME" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.example.song.pet.AlarmReceiver">
-        </receiver>
+        <receiver android:name=".AlarmReceiver"></receiver>
+
+        <service
+            android:name=".DownloadService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
-</manifest>  
+</manifest>

@@ -6,9 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
@@ -16,12 +14,11 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+
 import com.example.song.pet.view.NoScrollViewPager;
+
 import java.util.ArrayList;
 
 
@@ -35,17 +32,17 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private ArrayList<Fragment> fragmentsList;
     private MyFragmentPagerAdapter mAdapter;
 
-    private RelativeLayout first_fragment;
-    private RelativeLayout second_fragment;
-    private RelativeLayout third_fragment;
+    private ImageView first_fragment;
+    private ImageView second_fragment;
+    private ImageView third_fragment;
 
-    private ImageView image1;
-    private ImageView image2;
-    private ImageView image3;
-
-    private TextView text1;
-    private TextView text2;
-    private TextView text3;
+//    private ImageView image1;
+//    private ImageView image2;
+//    private ImageView image3;
+//
+//    private TextView text1;
+//    private TextView text2;
+//    private TextView text3;
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -63,6 +60,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         initViewPager();
         initViews();
         initSharedPreferences();
+        clearChoice();
         setTab(0);
         if(!isEnabled()){
             new AlertDialog.Builder(MainActivity.this).setTitle("是否开启Notification access")//设置对话框标题
@@ -118,15 +116,15 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     private void initViews() {
         mPager = (NoScrollViewPager) findViewById(R.id.mPager);
-        first_fragment = (RelativeLayout) findViewById(R.id.first_fragment);
-        second_fragment = (RelativeLayout) findViewById(R.id.second_fragment);
-        third_fragment = (RelativeLayout) findViewById(R.id.third_fragment);
-        image1 = (ImageView) findViewById(R.id.image1);
-        image2 = (ImageView) findViewById(R.id.image2);
-        image3 = (ImageView) findViewById(R.id.image3);
-        text1 = (TextView) findViewById(R.id.text1);
-        text2 = (TextView) findViewById(R.id.text2);
-        text3 = (TextView) findViewById(R.id.text3);
+        first_fragment = (ImageView) findViewById(R.id.first_fragment);
+        second_fragment = (ImageView) findViewById(R.id.second_fragment);
+        third_fragment = (ImageView) findViewById(R.id.third_fragment);
+//        image1 = (ImageView) findViewById(R.id.image1);
+//        image2 = (ImageView) findViewById(R.id.image2);
+//        image3 = (ImageView) findViewById(R.id.image3);
+//        text1 = (TextView) findViewById(R.id.text1);
+//        text2 = (TextView) findViewById(R.id.text2);
+//        text3 = (TextView) findViewById(R.id.text3);
         mPager.setAdapter(mAdapter);
 
 //        mPager.setOnTouchListener(new View.OnTouchListener() {
@@ -177,34 +175,40 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     }
 
-    public void clearChioce()
+    public void clearChoice()
     {
-        image1.setImageResource(R.drawable.home);
-        text1.setTextColor(Gray);
-        image2.setImageResource(R.drawable.clock);
-        text2.setTextColor(Gray);
-        image3.setImageResource(R.drawable.setting);
-        text3.setTextColor(Gray);
+        first_fragment.setImageResource(R.drawable.pet_light);
+        second_fragment.setImageResource(R.drawable.home_light);
+        third_fragment.setImageResource(R.drawable.setting_light);
+//        image1.setImageResource(R.drawable.home);
+//        text1.setTextColor(Gray);
+//        image2.setImageResource(R.drawable.clock);
+//        text2.setTextColor(Gray);
+//        image3.setImageResource(R.drawable.setting);
+//        text3.setTextColor(Gray);
 
     }
     public void setTab(int num)
     {
         switch (num) {
             case R.id.first_fragment:case 0:
-                image1.setImageResource(R.drawable.home_focus);
-                text1.setTextColor(Color.parseColor("#02a9f5"));
+//                image1.setImageResource(R.drawable.home_focus);
+//                text1.setTextColor(Color.parseColor("#02a9f5"));
+                first_fragment.setImageResource(R.drawable.pet_dark);
                 mPager.setCurrentItem(0);
                 mPager.setNoScroll(false);
                 break;
             case R.id.second_fragment:case 1:
-                image2.setImageResource(R.drawable.clock_focus);
-                text2.setTextColor(Color.parseColor("#02a9f5"));
+//                image2.setImageResource(R.drawable.clock_focus);
+//                text2.setTextColor(Color.parseColor("#02a9f5"));
+                second_fragment.setImageResource(R.drawable.home_dark);
                 mPager.setCurrentItem(1);
                 mPager.setNoScroll(true);
                 break;
             case R.id.third_fragment:case 2:
-                image3.setImageResource(R.drawable.setting_focus);
-                text3.setTextColor(Color.parseColor("#02a9f5"));
+//                image3.setImageResource(R.drawable.setting_focus);
+//                text3.setTextColor(Color.parseColor("#02a9f5"));
+                third_fragment.setImageResource(R.drawable.setting_dark);
                 mPager.setCurrentItem(2);
                 mPager.setNoScroll(false);
                 break;
@@ -218,7 +222,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         // TODO Auto-generated method stub
-        clearChioce();
+        clearChoice();
         setTab(v.getId());
     }
     @Override
@@ -228,7 +232,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         if(arg0 == 2)
         {
             int i = mPager.getCurrentItem();
-            clearChioce();
+            clearChoice();
             setTab(i);
         }
     }
