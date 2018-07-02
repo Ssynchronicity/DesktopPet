@@ -17,6 +17,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
+
 import com.example.song.pet.view.NoScrollViewPager;
 
 import java.util.ArrayList;
@@ -56,6 +57,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        enableNotification();
+        Intent intent = new Intent(this,WeChatNotificationListenerService.class);
+        startService(intent);
+
         fManager = getSupportFragmentManager();
         initViewPager();
         initViews();
@@ -264,5 +270,22 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             }
         }
         return false;
+    }
+
+
+    private void enableNotification(){
+        String string = Settings.Secure.getString(getContentResolver(),"enabled_notification_listeners");
+        if (!string.contains(WeChatNotificationListenerService.class.getName())) {
+            new AlertDialog.Builder(MainActivity.this).setTitle("是否开启微信提示")
+                    .setMessage("启动微信消息提示功能？")
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"));
+                        }
+                    })
+                    .setNegativeButton("取消",null)
+                    .show();
+        }
     }
 }
