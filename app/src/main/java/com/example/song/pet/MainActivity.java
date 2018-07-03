@@ -59,8 +59,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         setContentView(R.layout.activity_main);
 
         enableNotification();
-        Intent intent = new Intent(this,WeChatNotificationListenerService.class);
-        startService(intent);
+        Intent intentWeChat = new Intent(this,WeChatNotificationListenerService.class);
+        startService(intentWeChat);
 
         fManager = getSupportFragmentManager();
         initViewPager();
@@ -68,39 +68,39 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         initSharedPreferences();
         clearChoice();
         setTab(0);
-        if(!isEnabled()){
-            new AlertDialog.Builder(MainActivity.this).setTitle("是否开启Notification access")//设置对话框标题
-
-                    .setMessage("若想启动微信消息提醒则开启")//设置显示的内容
-
-                    .setPositiveButton("开启", new DialogInterface.OnClickListener() {//添加确定按钮
-
-
-                        @Override
-
-                        public void onClick(DialogInterface dialog, int which) {//确定按钮的响应事件
-
-                            // TODO Auto-generated method stub
-
-                            startActivity(new Intent(ACTION_NOTIFICATION_LISTENER_SETTINGS));
-
-                        }
-
-                    }).setNegativeButton("取消",new DialogInterface.OnClickListener() {//添加返回按钮
-
-
-
-                @Override
-
-                public void onClick(DialogInterface dialog, int which) {//响应事件
-
-                    // TODO Auto-generated method stub
-
-
-                }
-
-            }).show();//在按键响应事件中显示此对话框
-        }
+//        if(!isEnabled()){
+//            new AlertDialog.Builder(MainActivity.this).setTitle("是否开启Notification access")//设置对话框标题
+//
+//                    .setMessage("若想启动微信消息提醒则开启")//设置显示的内容
+//
+//                    .setPositiveButton("开启", new DialogInterface.OnClickListener() {//添加确定按钮
+//
+//
+//                        @Override
+//
+//                        public void onClick(DialogInterface dialog, int which) {//确定按钮的响应事件
+//
+//                            // TODO Auto-generated method stub
+//
+//                            startActivity(new Intent(ACTION_NOTIFICATION_LISTENER_SETTINGS));
+//
+//                        }
+//
+//                    }).setNegativeButton("取消",new DialogInterface.OnClickListener() {//添加返回按钮
+//
+//
+//
+//                @Override
+//
+//                public void onClick(DialogInterface dialog, int which) {//响应事件
+//
+//                    // TODO Auto-generated method stub
+//
+//
+//                }
+//
+//            }).show();//在按键响应事件中显示此对话框
+//        }
         if(!Settings.canDrawOverlays(getApplicationContext())){
             Intent intent1 = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
             intent1.setData(Uri.parse("package:" + getPackageName()));
