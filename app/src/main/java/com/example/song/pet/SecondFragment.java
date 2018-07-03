@@ -1,9 +1,8 @@
 package com.example.song.pet;
 
-/**
- * Created by wujia on 2016/4/4.
- */
-
+import android.app.Activity;
+import android.app.Activity.*;
+import java.util.Calendar;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
@@ -12,17 +11,16 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
+import com.example.song.pet.AlarmActivity;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ListView;
-import android.widget.PopupMenu;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +30,8 @@ import java.util.List;
 import java.util.HashSet;
 import android.view.View.OnClickListener;
 import java.util.Set;
+
+import static android.content.Context.ALARM_SERVICE;
 
 
 public class SecondFragment extends Fragment {
@@ -176,7 +176,7 @@ public class SecondFragment extends Fragment {
             s4.add(cursor.getString(2));
             s2.add(cursor.getString(3));
             s3.add(cursor.getString(4));
-            B.add(true);
+            B.add(cursor.getInt(6)==1);
         }
 
         //System.out.println(s1.get(1));
@@ -281,7 +281,7 @@ public class SecondFragment extends Fragment {
             s4.add(cursor.getString(2));
             s2.add(cursor.getString(3));
             s3.add(cursor.getString(4));
-            B.add(true);
+            B.add(cursor.getInt(6) == 1);
         }
 
         //System.out.println(s1.get(1));
@@ -329,6 +329,83 @@ public class SecondFragment extends Fragment {
             list_up_center_text.setText(s4.get(position));
             switch1.setChecked(B.get(position));
 
+            switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    if (!b){
+                        int n = position;
+                        String task=s1.get(n);
+                        String date =s2.get(n);
+                        String time=s3.get(n);
+                        String beizhu=s4.get(n);
+                        B.set(position,false);
+
+                        Cursor cursor=dbhelper.getReadableDatabase().rawQuery("select _id,count from alarm_task where task=? and addition=? and date1=? and time=?", new String[]{task,beizhu, date, time});
+                        final int index1 = cursor.getColumnIndex("_id");
+                        final int index2 = cursor.getColumnIndex("count");
+                        int  pid=0,id=0;
+                        if(cursor.moveToFirst()) {
+                            id = cursor.getInt(index1);
+                            pid = cursor.getInt(index2);
+                        }
+                        String UPDATE_SQL="update alarm_task set status = 1 where _id="+id;
+                        dbhelper.getReadableDatabase().execSQL(UPDATE_SQL);
+                        //无携带数据的Intent对象
+                        Intent intent=new Intent(getActivity(),AlarmReceiver.class);
+
+                        //创建PendingIntent对象
+                        PendingIntent pi= PendingIntent.getBroadcast(getActivity(), pid, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        //获取系统闹钟服务
+                        AlarmManager am=(AlarmManager)getActivity().getSystemService(ALARM_SERVICE);
+                        //删除指定pi对应的闹钟时间
+                        am.cancel(pi);
+                        Toast.makeText(getActivity(),"闹钟关闭成功！", Toast.LENGTH_SHORT).show();
+                        cursor.close();
+
+                    }
+                    else{
+                        AlarmManager am;
+                        int n = position;
+                        String task=s1.get(n);
+                        String date =s2.get(n);
+                        String time=s3.get(n);
+                        String beizhu=s4.get(n);
+                        Calendar tmp = Calendar.getInstance();
+                        B.set(position,true);
+
+                        Cursor cursor=dbhelper.getReadableDatabase().rawQuery("select _id,count from alarm_task where task=? and addition=? and date1=? and time=?", new String[]{task,beizhu, date, time});
+                        final int index1 = cursor.getColumnIndex("_id");
+                        final int index2 = cursor.getColumnIndex("count");
+                        int  pid=0,id=0;
+                        if(cursor.moveToFirst()) {
+                            id = cursor.getInt(index1);
+                            pid = cursor.getInt(index2);
+                        }
+                        String UPDATE_SQL="update alarm_task set status = 0 where _id="+id;
+                        dbhelper.getReadableDatabase().execSQL(UPDATE_SQL);
+
+                        Bundle bundle=new Bundle();
+                        //封装要传送的数据
+                        bundle.putString("task", task);
+                        bundle.putString("addition", beizhu);
+                        bundle.putString("date", date);
+                        bundle.putString("time", time);
+                        Intent intent=new Intent(getContext(),AlarmReceiver.class);
+                        intent.putExtras(bundle);
+                        //创建PendingIntent对象
+                        PendingIntent pi= PendingIntent.getBroadcast(getContext(), pid, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        //获取系统闹钟服务
+                        am=(AlarmManager) getActivity().getSystemService(ALARM_SERVICE);
+                        //开启闹钟
+                        System.out.println(tmp.getTimeInMillis());
+                        am.set(AlarmManager.RTC_WAKEUP, tmp.getTimeInMillis(), pi);
+                        tmp.setTimeInMillis(System.currentTimeMillis());
+                        System.out.println(tmp.getTimeInMillis());
+                        Toast.makeText(getContext(), "闹钟设置成功！", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
             sll_main.setOnSwipeStatusListener(new MyOnSlipStatusListener(
                     sll_main));
             tv_top.setOnClickListener(new OnClickListener() {
@@ -336,10 +413,51 @@ public class SecondFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     sll_main.setStatus(SwipeListLayout.Status.Close, true);
-                    String str = s1.get(position);
-                    s1.remove(position);
-                    s1.add(0, str);
+                    int n = position;
+                    String task=s1.get(n);
+                    String date =s2.get(n);
+                    String time=s3.get(n);
+                    String beizhu=s4.get(n);
+                    s1.remove(n);
+
+                    s2.remove(n);
+                    s3.remove(n);
+                    s4.remove(n);
+                    B.remove(n);
+                    c.remove(n);
+                    //根据闹钟id现在数据出里面查找出对应闹钟的PendingIntent编号,然后再在数据库里面删除对应闹钟记录
+                    // String SELECT_SQL="select count from alarm_task where _id="+n;
+                    Cursor cursor=dbhelper.getReadableDatabase().rawQuery("select _id,count from alarm_task where task=? and addition=? and date1=? and time=?", new String[]{task,beizhu, date, time});
+                    final int index1 = cursor.getColumnIndex("_id");
+                    final int index2 = cursor.getColumnIndex("count");
+                    int  pid=0,id=0;
+                    if(cursor.moveToFirst()) {
+                        id = cursor.getInt(index1);
+                        pid = cursor.getInt(index2);
+                    }
+                    String DELETE_SQL="delete from alarm_task where _id="+id;
+                    dbhelper.getReadableDatabase().execSQL(DELETE_SQL);
+                    //无携带数据的Intent对象
+                    Intent intent=new Intent(getActivity(),AlarmReceiver.class);
+
+                    //创建PendingIntent对象
+                    PendingIntent pi= PendingIntent.getBroadcast(getActivity(), pid, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    //获取系统闹钟服务
+                    AlarmManager am=(AlarmManager)getActivity().getSystemService(ALARM_SERVICE);
+                    //删除指定pi对应的闹钟时间
+                    am.cancel(pi);
+                    Toast.makeText(getActivity(),"修改闹钟", Toast.LENGTH_SHORT).show();
+                    cursor.close();
+
+                    Intent intent1=new Intent(getActivity(),AlarmActivity.class);
+                    startActivity(intent1);
+
                     notifyDataSetChanged();
+                    // sll_main.setStatus(SwipeListLayout.Status.Close, true);
+                    // String str = s1.get(position);
+                    // s1.remove(position);
+                    // s1.add(0, str);
+                    // notifyDataSetChanged();
                 }
             });
             tv_delete.setOnClickListener(new OnClickListener() {
@@ -377,7 +495,7 @@ public class SecondFragment extends Fragment {
                     //创建PendingIntent对象
                     PendingIntent pi= PendingIntent.getBroadcast(getActivity(), pid, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                     //获取系统闹钟服务
-                    AlarmManager am=(AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
+                    AlarmManager am=(AlarmManager)getActivity().getSystemService(ALARM_SERVICE);
                     //删除指定pi对应的闹钟时间
                     am.cancel(pi);
                     Toast.makeText(getActivity(),"闹钟删除成功！", Toast.LENGTH_SHORT).show();
