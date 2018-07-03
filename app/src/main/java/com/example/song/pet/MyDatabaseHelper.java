@@ -11,7 +11,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 			                            "addition varchar(100),"+
 			                            "date1 varchar(30),"+
 			                            "time varchar(30),"+
-			                            "count integer)";
+			                            "count integer," +
+										"status integer)";
 	public MyDatabaseHelper(Context context, String name,
                             CursorFactory factory, int version) {
 		super(context, name, factory, version);

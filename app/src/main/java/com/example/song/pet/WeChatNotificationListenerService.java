@@ -27,7 +27,7 @@ public class WeChatNotificationListenerService extends NotificationListenerServi
 }
 
 /*将下面这个东西放在要接收微信消息的地方，*/
-private class WeChatReveiver extends BroadcastReceiver{
+/* private class WeChatReveiver extends BroadcastReceiver{
     @Override
     public void onReceive(Context context, Intent intent) {
         Bundle bundle = intent.getExtras();
@@ -36,14 +36,14 @@ private class WeChatReveiver extends BroadcastReceiver{
             String name = bundle.getString("name");
             String text = bundle.getString("text");
 
-            new AlertDialog.Builder(MainActivity.this)/*!!!!!!!!!!!!这个 MainActivity 可能要换!!!!!!!!!!!!!*/
+            new AlertDialog.Builder(MainActivity.this) //!!!!!!!!!!!!这个 MainActivity 可能要换!!!!!!!!!!!!!
                     .setTitle("微信信息")
                     .setMessage(name + " : \n" + text)
                     .setPositiveButton("确定", null)
                     .show();
         }
     }
-}
+} */
 /*创建实例
 
     private WeChatReveiver receiver = null;

@@ -142,7 +142,8 @@ public class AlarmActivity extends Activity implements OnClickListener {
 					editor.putInt("count", count);
 					editor.commit();
 					//把数据插入数据库
-					dbhelper.getReadableDatabase().execSQL("insert into alarm_task values(null,?,?,?,?,"+count+")", new String[]{task,addition,date,time});
+					int status = 1;
+					dbhelper.getReadableDatabase().execSQL("insert into alarm_task values(null,?,?,?,?,"+count+","+status+")", new String[]{task,addition,date,time});
 					Toast.makeText(AlarmActivity.this, "闹钟设置成功！", Toast.LENGTH_SHORT).show();
 					this.finish();
 				}
