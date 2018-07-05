@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 
 /**
  * Created by Lxr on 2016/4/22.
@@ -22,11 +23,10 @@ public class AlarmReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         // TODO Auto-generated method stub
         //收到闹钟Intent,解封数据
-        Bundle bundle=intent.getExtras();
-        String task=bundle.getString("task");
-        String addition=bundle.getString("addition");
-        String date=bundle.getString("date");
-        String time=bundle.getString("time");
+        String task = intent.getStringExtra("task");
+        String addition = intent.getStringExtra("addition");
+        String date = intent.getStringExtra("date");
+        String time = intent.getStringExtra("time");
 
         KeyguardManager mKeyguardManager = (KeyguardManager) context.getSystemService(context.KEYGUARD_SERVICE);
 
@@ -50,13 +50,13 @@ public class AlarmReceiver extends BroadcastReceiver {
         }
         else{
             //封装Intent,以便发送局部广播
-            Intent msgrcv = new Intent("Alarm");
+            Intent msgrcv = new Intent();
             msgrcv.putExtra("task", task);
             msgrcv.putExtra("addition", addition);
             msgrcv.putExtra("date", date);
             msgrcv.putExtra("time", time);
-            System.out.println("闹钟");
             //发送局部广播
+            msgrcv.setAction("AlarmNotificationListenerService");
             LocalBroadcastManager.getInstance(context).sendBroadcast(msgrcv);
         }
 

@@ -1,14 +1,18 @@
 package com.example.song.pet;
 
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -21,6 +25,7 @@ import android.widget.ImageView;
 import com.example.song.pet.view.NoScrollViewPager;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
@@ -53,14 +58,16 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     private static final String ENABLED_NOTIFICATION_LISTENERS = "enabled_notification_listeners";
     private static final String ACTION_NOTIFICATION_LISTENER_SETTINGS = "android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS";
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         enableNotification();
-        Intent intentWeChat = new Intent(this,WeChatNotificationListenerService.class);
-        startService(intentWeChat);
+        checkWeChatNotificationRunning();
 
         fManager = getSupportFragmentManager();
         initViewPager();
@@ -121,10 +128,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
 
     private void initViews() {
-        mPager = (NoScrollViewPager) findViewById(R.id.mPager);
-        first_fragment = (ImageView) findViewById(R.id.first_fragment);
-        second_fragment = (ImageView) findViewById(R.id.second_fragment);
-        third_fragment = (ImageView) findViewById(R.id.third_fragment);
+        mPager = findViewById(R.id.mPager);
+        first_fragment = findViewById(R.id.first_fragment);
+        second_fragment = findViewById(R.id.second_fragment);
+        third_fragment = findViewById(R.id.third_fragment);
 //        image1 = (ImageView) findViewById(R.id.image1);
 //        image2 = (ImageView) findViewById(R.id.image2);
 //        image3 = (ImageView) findViewById(R.id.image3);
@@ -147,7 +154,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     private void initViewPager()
     {
-        fragmentsList = new ArrayList<Fragment>();
+        fragmentsList = new ArrayList<>();
         fg1 = new FirstFragment();
         fg2 = new SecondFragment();
         fg3 = new ThirdFragment();
@@ -272,7 +279,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         return false;
     }
 
-
+    @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
     private void enableNotification(){
         String string = Settings.Secure.getString(getContentResolver(),"enabled_notification_listeners");
         if (!string.contains(WeChatNotificationListenerService.class.getName())) {
@@ -287,5 +294,29 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     .setNegativeButton("取消",null)
                     .show();
         }
+    }
+
+    //确认是否开启
+    private void checkWeChatNotificationRunning() {
+        ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningServiceInfo> serviceList = activityManager.getRunningServices(Integer.MAX_VALUE);
+        if (serviceList == null || serviceList.size() == 0){
+            toggleNotificationListenerService();
+            return;
+        }
+        boolean collectorRunning = false;
+        for (ActivityManager.RunningServiceInfo info : serviceList) {
+            if (info.service.getClassName().equals(WeChatNotificationListenerService.class.getName()))
+                collectorRunning = true;
+        }
+        if(collectorRunning) return;
+        toggleNotificationListenerService();
+    }
+
+    private void toggleNotificationListenerService() {
+        ComponentName thisComponent = new ComponentName(this,  WeChatNotificationListenerService.class);
+        PackageManager pm = getPackageManager();
+        pm.setComponentEnabledSetting(thisComponent, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+        pm.setComponentEnabledSetting(thisComponent, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
     }
 }

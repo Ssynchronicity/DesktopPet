@@ -28,6 +28,7 @@ public class FirstFragment extends Fragment {
     ToolbarView first_toolbarview;
     //    private PetSelect first,second,third,fourth;
     private PetSelect first, second;
+    private Button miku_temp;//暂时
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
@@ -49,18 +50,19 @@ public class FirstFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_first, container, false);
-        first_toolbarview = (ToolbarView) rootView.findViewById(R.id.first_toolbarview);
-        first = (PetSelect) rootView.findViewById(R.id.select_1);
-        second = (PetSelect) rootView.findViewById(R.id.select_2);
+        first_toolbarview = rootView.findViewById(R.id.first_toolbarview);
+        first = rootView.findViewById(R.id.select_1);
+        second = rootView.findViewById(R.id.select_2);
+        miku_temp = rootView.findViewById(R.id.miku_temp);
 //        third = (PetSelect)rootView.findViewById(R.id.select_3);
 //        fourth = (PetSelect)rootView.findViewById(R.id.select_4);
         init();
 
         // Download staff block begin //
 
-        Button startDownload = (Button) rootView.findViewById(R.id.start_download);
-        Button pauseDownload = (Button) rootView.findViewById(R.id.pause_download);
-        Button cancelDownload = (Button) rootView.findViewById(R.id.cancel_download);
+        Button startDownload = rootView.findViewById(R.id.start_download);
+        Button pauseDownload = rootView.findViewById(R.id.pause_download);
+        Button cancelDownload = rootView.findViewById(R.id.cancel_download);
 
         startDownload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,7 +103,6 @@ public class FirstFragment extends Fragment {
 
         // Download staff block end //
         setListener();
-
 
         return rootView;
     }
@@ -179,6 +180,16 @@ public class FirstFragment extends Fragment {
     //要获取Activity中的资源，就必须等Activity创建完成以后，所以必须放在onActivityCreated()回调函数中
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        miku_temp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), FloatWindowService.class);
+                getActivity().startService(intent);
+                getActivity().finish();
+            }
+        });
+
         first.setSwitchListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override

@@ -8,6 +8,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -51,14 +52,14 @@ public class AlarmActivity extends Activity implements OnClickListener {
 
 		System.out.println(c.get(Calendar.HOUR_OF_DAY));
 		System.out.println(c.get(Calendar.MINUTE));
-		tv_date = (TextView)findViewById(R.id.alarm_et_date);
-		tv_time = (TextView)findViewById(R.id.alarm_et_time);
-		bt_back=(Button)findViewById(R.id.alarmset_bt_back);
-		bt_save=(Button)findViewById(R.id.alarmset_bt_save);
-		bt_time = (Button)findViewById(R.id.alarm_bt_time);
-		bt_date = (Button)findViewById(R.id.alarm_bt_date);
-		et_task=(EditText)findViewById(R.id.alarmset_et_task);
-		et_addition=(EditText)findViewById(R.id.alarmset_et_remark);
+		tv_date = findViewById(R.id.alarm_et_date);
+		tv_time = findViewById(R.id.alarm_et_time);
+		bt_back= findViewById(R.id.alarmset_bt_back);
+		bt_save= findViewById(R.id.alarmset_bt_save);
+		bt_time =  findViewById(R.id.alarm_bt_time);
+		bt_date = findViewById(R.id.alarm_bt_date);
+		et_task=findViewById(R.id.alarmset_et_task);
+		et_addition=findViewById(R.id.alarmset_et_remark);
 		tv_date.setText(c.get(Calendar.YEAR)+"年"+(c.get(Calendar.MONTH)+1)+"月"+c.get(Calendar.DAY_OF_MONTH)+"日");
 	}
 
@@ -120,6 +121,7 @@ public class AlarmActivity extends Activity implements OnClickListener {
 					String addition=et_addition.getText().toString();
 					String date=c.get(Calendar.YEAR)+"/"+(c.get(Calendar.MONTH)+1)+"/"+c.get(Calendar.DAY_OF_MONTH);
 					String time=c.get(Calendar.HOUR_OF_DAY)+":"+c.get(Calendar.MINUTE);
+
 					Bundle bundle=new Bundle();
 					//封装要传送的数据
 					bundle.putString("task", task);
@@ -128,15 +130,17 @@ public class AlarmActivity extends Activity implements OnClickListener {
 					bundle.putString("time", time);
 					Intent intent=new Intent(AlarmActivity.this,AlarmReceiver.class);
 					intent.putExtras(bundle);
+
 					//创建PendingIntent对象
-					PendingIntent pi= PendingIntent.getBroadcast(this, count, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+					PendingIntent pi = PendingIntent.getBroadcast(this, count, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
 					//获取系统闹钟服务
 					am=(AlarmManager)getSystemService(ALARM_SERVICE);
+
 					//开启闹钟
-					System.out.println(c.getTimeInMillis());
 					am.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pi);
 					c.setTimeInMillis(System.currentTimeMillis());
-					System.out.println(c.getTimeInMillis());
+
 					//count自增，存入数据，提交修改
 					count++;
 					editor.putInt("count", count);

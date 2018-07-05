@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="265dp"
+    android:layout_height="163dp"
+    android:id="@+id/float_window_id">
+
+    <LinearLayout
+        android:id="@+id/layouttt"
+        android:layout_width="202dp"
+        android:layout_height="100dp"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/border"
+        android:padding="5dp"
+        android:visibility="invisible">
+        <TextView
+            android:id="@+id/textview1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="来自微信消息"
+            android:textStyle="bold"
+            android:textAlignment="center"/>
+        <TextView
+            android:id="@+id/textview2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="消息提示：今天我不想学习明天我也不想学习我每天都不想学习"
+            />
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/animview"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:background="@drawable/shime1"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true" />
+
+
+</RelativeLayout>
+
+
