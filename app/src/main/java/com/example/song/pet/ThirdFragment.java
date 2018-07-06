@@ -131,8 +131,6 @@ public class ThirdFragment extends Fragment {
                     }
                     Intent serverIntent = new Intent(getActivity(), DeviceListActivity.class);
                     startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE_SECURE);
-
-
                 }
             }
         });
@@ -173,7 +171,6 @@ public class ThirdFragment extends Fragment {
 
     }
     private void setupChat() {
-
         // Initialize the BluetoothChatService to perform bluetooth connections
         mChatService = new BluetoothChatService(getActivity(), mHandler);
     }
@@ -218,6 +215,7 @@ public class ThirdFragment extends Fragment {
         editor.putBoolean("isSecondUnlock",true);
         editor.commit();
     }
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case REQUEST_CONNECT_DEVICE_SECURE:

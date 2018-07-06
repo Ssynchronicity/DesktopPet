@@ -8,19 +8,6 @@ import android.os.Build;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.WindowManager;
-import android.widget.TextView;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-
-import android.app.ActivityManager;
-import android.content.Context;
-import android.graphics.PixelFormat;
-import android.os.Build;
-import android.view.Gravity;
-import android.view.WindowManager;
-import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

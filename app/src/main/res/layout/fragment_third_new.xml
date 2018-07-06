@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="软件设置"
+        android:textColor="@color/new_ui_theme_smokeblue"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/gl1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/gl1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/gl1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="100dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:text="宠物设置"
+                android:textColor="@color/new_ui_theme_gray" />
+
+            <RelativeLayout
+                android:id="@+id/isPetOn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="15dp"
+                    android:text="开启宠物"
+                    android:textColor="@color/new_ui_theme_black"
+                    android:textSize="15sp" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/isPetOnSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
+                    android:checked="true" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/isAutoStart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/isAutoStartText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:text="开机启动"
+                        android:textColor="@color/new_ui_theme_black"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="2dp"
+                        android:text="请确保系统能允许本应用开机启动"
+                        android:textColor="@color/new_ui_theme_textgray"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/isAutoStartSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/changePetSize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:id="@+id/changePetSizeLargeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:text="宠物大小"
+                    android:textColor="@color/new_ui_theme_black"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/changePetSizeSmallText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/changePetSizeLargeText"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="3dp"
+                    android:text="拖动滑块调节宠物大小"
+                    android:textColor="@color/new_ui_theme_textgray"
+                    android:textSize="12sp" />
+
+                <com.warkiz.widget.IndicatorSeekBar
+                    android:id="@+id/changePetSizeSeekBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/changePetSizeSmallText"
+                    android:layout_marginTop="15dp"
+                    app:isb_indicator_color="@color/new_ui_theme_smokeblue"
+                    app:isb_max="125"
+                    app:isb_min="30"
+                    app:isb_progress="125"
+                    app:isb_seek_smoothly="true"
+                    app:isb_show_indicator="circular_bubble"
+                    app:isb_show_tick_texts="true"
+                    app:isb_show_thumb_text="true"
+                    app:isb_thumb_color="@color/new_ui_theme_smokeblue"
+                    app:isb_thumb_text_color="@color/new_ui_theme_smokeblue"
+                    app:isb_track_background_color="@color/new_ui_theme_gray"
+                    app:isb_track_progress_color="@color/new_ui_theme_smokeblue" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_below="@id/changePetSizeSeekBar"
+                    android:layout_marginTop="15dp">
+
+                    <ImageView
+                        android:id="@+id/petSizePreview"
+                        android:layout_width="match_parent"
+                        android:layout_height="125dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/pika_window" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="20dp"
+                android:text="配对设置"
+                android:textColor="@color/new_ui_theme_gray" />
+
+            <RelativeLayout
+                android:id="@+id/bluetoothSetting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:text="宠物蓝牙配对设置"
+                    android:textColor="@color/new_ui_theme_black"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+        </LinearLayout>
+
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>

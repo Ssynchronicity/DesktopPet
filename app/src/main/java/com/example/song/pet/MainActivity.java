@@ -21,7 +21,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
-
 import com.example.song.pet.view.NoScrollViewPager;
 
 import java.util.ArrayList;
@@ -32,7 +31,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     private FirstFragment fg1;
     private SecondFragment fg2;
-    private ThirdFragment fg3;
+    private NewThirdFragment fg3;
 
     private NoScrollViewPager mPager;
     private ArrayList<Fragment> fragmentsList;
@@ -114,7 +113,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             startActivityForResult(intent1,100);
         }
 
-
+        // 打开app时检测petOn是否为true
+        boolean isPetOn = sharedPreferences.getBoolean("petOn", true);
+        if (isPetOn) {
+            Intent startFloatWindow = new Intent(this, FloatWindowService.class);
+            startService(startFloatWindow);
+        }
 
 //        startFloatWindow.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -132,12 +136,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         first_fragment = findViewById(R.id.first_fragment);
         second_fragment = findViewById(R.id.second_fragment);
         third_fragment = findViewById(R.id.third_fragment);
-//        image1 = (ImageView) findViewById(R.id.image1);
-//        image2 = (ImageView) findViewById(R.id.image2);
-//        image3 = (ImageView) findViewById(R.id.image3);
-//        text1 = (TextView) findViewById(R.id.text1);
-//        text2 = (TextView) findViewById(R.id.text2);
-//        text3 = (TextView) findViewById(R.id.text3);
         mPager.setAdapter(mAdapter);
 
 //        mPager.setOnTouchListener(new View.OnTouchListener() {
@@ -157,7 +155,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         fragmentsList = new ArrayList<>();
         fg1 = new FirstFragment();
         fg2 = new SecondFragment();
-        fg3 = new ThirdFragment();
+        fg3 = new NewThirdFragment();
         fragmentsList.add(fg1);
         fragmentsList.add(fg2);
         fragmentsList.add(fg3);
@@ -168,24 +166,29 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         sharedPreferences = getSharedPreferences("pet", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
-        //第一次登陆时的初始化
-        if(!sharedPreferences.contains("times")){
-            editor.putInt("times",1);
-            editor.putString("name1", "皮卡");
-            editor.putString("name2","鳄鱼");
-            editor.putBoolean("isSecondUnlock",false);
-            editor.putBoolean("isFirstOn",false);
-            editor.putBoolean("isSecondOn",false);
-            //设置界面的初始化
-            editor.putBoolean("show", true);
-            editor.putBoolean("always", true);
-            editor.putBoolean("on",false);
-            editor.putBoolean("set",true);
-            editor.putBoolean("time",false);
-            editor.commit();
-            editor.commit();
+//        //第一次登陆时的初始化
+//        if(!sharedPreferences.contains("times")){
+//            editor.putInt("times",1);
+//            editor.putString("name1", "皮卡");
+//            editor.putString("name2","鳄鱼");
+//            editor.putBoolean("isSecondUnlock",false);
+//            editor.putBoolean("isFirstOn",false);
+//            editor.putBoolean("isSecondOn",false);
+//            //设置界面的初始化
+//            editor.putBoolean("show", true);
+//            editor.putBoolean("always", true);
+//            editor.putBoolean("on",false);
+//            editor.putBoolean("set",true);
+//            editor.putBoolean("time",false);
+//            editor.commit();
+//        }
+        if (!sharedPreferences.contains("firstRun")) {
+            editor.putBoolean("firstRun", true);
+            editor.putBoolean("petOn", true);
+            editor.putBoolean("autoStart", false);
+            editor.putInt("petSize", PetNumbers.INITIAL_PET_VIEW_SIZE);
+            editor.apply();
         }
-
     }
 
     public void clearChoice()
@@ -193,34 +196,21 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         first_fragment.setImageResource(R.drawable.pet_light);
         second_fragment.setImageResource(R.drawable.home_light);
         third_fragment.setImageResource(R.drawable.setting_light);
-//        image1.setImageResource(R.drawable.home);
-//        text1.setTextColor(Gray);
-//        image2.setImageResource(R.drawable.clock);
-//        text2.setTextColor(Gray);
-//        image3.setImageResource(R.drawable.setting);
-//        text3.setTextColor(Gray);
-
     }
     public void setTab(int num)
     {
         switch (num) {
             case R.id.first_fragment:case 0:
-//                image1.setImageResource(R.drawable.home_focus);
-//                text1.setTextColor(Color.parseColor("#02a9f5"));
                 first_fragment.setImageResource(R.drawable.pet_dark);
                 mPager.setCurrentItem(0);
                 mPager.setNoScroll(false);
                 break;
             case R.id.second_fragment:case 1:
-//                image2.setImageResource(R.drawable.clock_focus);
-//                text2.setTextColor(Color.parseColor("#02a9f5"));
                 second_fragment.setImageResource(R.drawable.home_dark);
                 mPager.setCurrentItem(1);
                 mPager.setNoScroll(true);
                 break;
             case R.id.third_fragment:case 2:
-//                image3.setImageResource(R.drawable.setting_focus);
-//                text3.setTextColor(Color.parseColor("#02a9f5"));
                 third_fragment.setImageResource(R.drawable.setting_dark);
                 mPager.setCurrentItem(2);
                 mPager.setNoScroll(false);
@@ -234,14 +224,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        // TODO Auto-generated method stub
         clearChoice();
         setTab(v.getId());
     }
     @Override
     public void onPageScrollStateChanged(int arg0) {
-        // TODO Auto-generated method stub
-
         if(arg0 == 2)
         {
             int i = mPager.getCurrentItem();
@@ -251,12 +238,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
     @Override
     public void onPageScrolled(int arg0, float arg1, int arg2) {
-        // TODO Auto-generated method stub
 
     }
     @Override
     public void onPageSelected(int arg0) {
-        // TODO Auto-generated method stub
 
     }
 

@@ -9,6 +9,7 @@ import android.content.pm.ResolveInfo;
 import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,7 @@ public class FloatWindowService extends Service{
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.i("FWService", "Started");
         if (timer == null) {
             timer = new Timer();
             timer.scheduleAtFixedRate(new RefreshTask(),0,500);
@@ -36,6 +38,8 @@ public class FloatWindowService extends Service{
 
     @Override
     public void onDestroy() {
+        MyWindowManager.removeWindow(getApplicationContext());
+        Log.i("FWService", "Stopped");
         super.onDestroy();
         timer.cancel();
         timer = null;

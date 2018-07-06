@@ -86,7 +86,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="65dp">
                 <TextView
-                    android:id="@+id/Tv_on"
+                    android:id="@+id/isAutoStartText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -107,7 +107,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/Tv_on"
+                    android:layout_below="@+id/isAutoStartText"
                     android:layout_marginLeft="15dp"
                     android:textColor="@color/black"
                     android:text="请确保系统能允许本应用开机启动"/>

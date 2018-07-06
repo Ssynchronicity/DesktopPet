@@ -15,4 +15,9 @@
     <color name="primary">#FF03A9F4</color>
     <color name="primary_dark">#FF0288D1</color>
     <color name="status_bar_color">@color/primary_dark</color>
+    <color name="new_ui_theme_smokeblue">#6F899E</color>
+    <color name="new_ui_theme_darkblue">#244867</color>
+    <color name="new_ui_theme_gray">#b4b4b4</color>
+    <color name="new_ui_theme_black">#505050</color>
+    <color name="new_ui_theme_textgray">#969696</color>
 </resources>

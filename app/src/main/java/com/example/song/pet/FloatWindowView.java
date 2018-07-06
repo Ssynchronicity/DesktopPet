@@ -5,16 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.AnimationDrawable;
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -33,27 +30,39 @@ public class FloatWindowView extends RelativeLayout {
     private float yDownInScreen;
     private float xInView;
     private float yInView;
-    private ImageView animview;
-    private TextView titleview;
-    private TextView contextview;
+    private ImageView animView;
+    private TextView titleView;
+    private TextView contextView;
     private View view;
-    private View messageview;
+    private View messageView;
     private int NowAnimNumber = 0;
+    private boolean isMessageVisible;
 
     public FloatWindowView(Context context) {
         super(context);
         windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         LayoutInflater.from(context).inflate(R.layout.float_window, this);
         view = findViewById(R.id.float_window_id);
-        messageview = findViewById(R.id.layouttt);
-        titleview = findViewById(R.id.textview1);
-        contextview = findViewById(R.id.textview2);
-        animview = findViewById(R.id.animview);
-        viewWidth = animview.getLayoutParams().width;
-        viewHeight = animview.getLayoutParams().height;
+        messageView = findViewById(R.id.layouttt);
+        titleView = findViewById(R.id.textview1);
+        contextView = findViewById(R.id.textview2);
+        animView = findViewById(R.id.animview);
+        setViewSizeFromConfig(context);
+        viewWidth = animView.getLayoutParams().width;
+        viewHeight = animView.getLayoutParams().height;
 
         LocalBroadcastManager.getInstance(context).registerReceiver(onWechat, new IntentFilter("WeChatNotificationListenerService"));
         LocalBroadcastManager.getInstance(context).registerReceiver(onAlarm, new IntentFilter("AlarmNotificationListenerService"));
+        LocalBroadcastManager.getInstance(context).registerReceiver(onPetSizeChanged, new IntentFilter("PetSizeChangeListener"));
+
+        isMessageVisible = false;
+    }
+
+    private void setViewSizeFromConfig(Context context) {
+        float scale = context.getSharedPreferences("pet", Context.MODE_PRIVATE).getInt("petSize", PetNumbers.INITIAL_PET_VIEW_SIZE) / (float) PetNumbers.INITIAL_PET_VIEW_SIZE;
+        scaleViewSize(animView, scale);
+        scaleViewSize(messageView, scale);
+        scaleViewSize(view, scale);
     }
 
     @Override
@@ -83,67 +92,68 @@ public class FloatWindowView extends RelativeLayout {
                     */
                     if (NowAnimNumber == 0) {
                         if (viewWidth == view.getLayoutParams().width) {
-                            viewWidth = animview.getLayoutParams().width;
-                            viewHeight = animview.getLayoutParams().height;
-                            messageview.setVisibility(View.INVISIBLE);
+                            viewWidth = animView.getLayoutParams().width;
+                            viewHeight = animView.getLayoutParams().height;
+                            messageView.setVisibility(View.INVISIBLE);
                             MyWindowManager.updateWindow(getContext());
                         }
                         AnimationDrawable drawable = (AnimationDrawable) ContextCompat.getDrawable(getContext(), R.drawable.walkanim);
-                        animview.setBackground(drawable);
+                        animView.setBackground(drawable);
                         drawable.start();
                         NowAnimNumber = 1;
                     } else if (NowAnimNumber == 1) {
                         if (viewWidth == view.getLayoutParams().width) {
-                            viewWidth = animview.getLayoutParams().width;
-                            viewHeight = animview.getLayoutParams().height;
-                            messageview.setVisibility(View.INVISIBLE);
+                            viewWidth = animView.getLayoutParams().width;
+                            viewHeight = animView.getLayoutParams().height;
+                            messageView.setVisibility(View.INVISIBLE);
                             MyWindowManager.updateWindow(getContext());
                         }
                         AnimationDrawable drawable = (AnimationDrawable) ContextCompat.getDrawable(getContext(), R.drawable.sitanim);
-                        animview.setBackground(drawable);
+                        animView.setBackground(drawable);
                         drawable.start();
                         NowAnimNumber = 2;
                     } else if (NowAnimNumber == 2) {
-                        if (viewWidth == animview.getLayoutParams().width) {
+                        if (viewWidth == animView.getLayoutParams().width) {
                             viewWidth = view.getLayoutParams().width;
                             viewHeight = view.getLayoutParams().height;
-                            messageview.setVisibility(View.VISIBLE);
+                            messageView.setVisibility(View.VISIBLE);
+                            isMessageVisible = true;
                             MyWindowManager.updateWindow(getContext());
                         }
                         AnimationDrawable drawable = (AnimationDrawable) ContextCompat.getDrawable(getContext(), R.drawable.messageanim);
-                        animview.setBackground(drawable);
+                        animView.setBackground(drawable);
                         drawable.start();
                         NowAnimNumber = 3;
                     } else if (NowAnimNumber == 3) {
                         if (viewWidth == view.getLayoutParams().width) {
-                            viewWidth = animview.getLayoutParams().width;
-                            viewHeight = animview.getLayoutParams().height;
-                            messageview.setVisibility(View.INVISIBLE);
+                            viewWidth = animView.getLayoutParams().width;
+                            viewHeight = animView.getLayoutParams().height;
+                            messageView.setVisibility(View.INVISIBLE);
                             MyWindowManager.updateWindow(getContext());
                         }
                         AnimationDrawable drawable = (AnimationDrawable) ContextCompat.getDrawable(getContext(), R.drawable.paqiang);
-                        animview.setBackground(drawable);
+                        animView.setBackground(drawable);
                         drawable.start();
                         NowAnimNumber = 4;
                     } else if (NowAnimNumber == 4) {
                         if (viewWidth == view.getLayoutParams().width) {
-                            viewWidth = animview.getLayoutParams().width;
-                            viewHeight = animview.getLayoutParams().height;
-                            messageview.setVisibility(View.INVISIBLE);
+                            viewWidth = animView.getLayoutParams().width;
+                            viewHeight = animView.getLayoutParams().height;
+                            messageView.setVisibility(View.INVISIBLE);
                             MyWindowManager.updateWindow(getContext());
                         }
                         AnimationDrawable drawable = (AnimationDrawable) ContextCompat.getDrawable(getContext(), R.drawable.padi);
-                        animview.setBackground(drawable);
+                        animView.setBackground(drawable);
                         drawable.start();
                         NowAnimNumber = 5;
                     } else {
                         if (viewWidth == view.getLayoutParams().width) {
-                            viewWidth = animview.getLayoutParams().width;
-                            viewHeight = animview.getLayoutParams().height;
-                            messageview.setVisibility(View.INVISIBLE);
+                            viewWidth = animView.getLayoutParams().width;
+                            viewHeight = animView.getLayoutParams().height;
+                            messageView.setVisibility(View.INVISIBLE);
                             MyWindowManager.updateWindow(getContext());
                         }
-                        animview.setBackgroundResource(R.drawable.shime1);
+                        animView.setBackgroundResource(R.drawable.shime1);
                         NowAnimNumber = 0;
                     }
 
@@ -192,26 +202,24 @@ public class FloatWindowView extends RelativeLayout {
                     String text = intent.getStringExtra("text");
 
                     String content = "";
-                    if(name != null && text != null) {
+                    if (name != null && text != null) {
                         content = name + ":" + text;
-                    }
-                    else if(name != null) {
+                    } else if (name != null) {
                         content = name;
-                    }
-                    else if(text != null) {
+                    } else if (text != null) {
                         content = text;
                     }
 
-                    if (viewWidth == animview.getLayoutParams().width) {
-                            viewWidth = view.getLayoutParams().width;
-                            viewHeight = view.getLayoutParams().height;
-                            messageview.setVisibility(View.VISIBLE);
-                            MyWindowManager.updateWindow(getContext());
+                    if (viewWidth == animView.getLayoutParams().width) {
+                        viewWidth = view.getLayoutParams().width;
+                        viewHeight = view.getLayoutParams().height;
+                        messageView.setVisibility(View.VISIBLE);
+                        MyWindowManager.updateWindow(getContext());
                     }
-                    titleview.setText("主人主人，有新的微信消息啦");//关于宠物怎么称呼用户，需要读取设置页面的信息
-                    contextview.setText(content);
+                    titleView.setText("主人主人，有新的微信消息啦");//关于宠物怎么称呼用户，需要读取设置页面的信息
+                    contextView.setText(content);
                     AnimationDrawable drawable = (AnimationDrawable) ContextCompat.getDrawable(getContext(), R.drawable.messageanim);
-                    animview.setBackground(drawable);
+                    animView.setBackground(drawable);
                     drawable.start();
                     NowAnimNumber = 0;
                 }
@@ -231,27 +239,56 @@ public class FloatWindowView extends RelativeLayout {
                 String addition = intent.getStringExtra("addition");
 
                 String content = time;
-                if(task != null) {
+                if (task != null) {
                     content = task + "\n" + content;
                 }
-                if(addition != null) {
+                if (addition != null) {
                     content += "\n" + addition;
                 }
 
-                if (viewWidth == animview.getLayoutParams().width) {
+                if (viewWidth == animView.getLayoutParams().width) {
                     viewWidth = view.getLayoutParams().width;
                     viewHeight = view.getLayoutParams().height;
-                    messageview.setVisibility(View.VISIBLE);
+                    messageView.setVisibility(View.VISIBLE);
                     MyWindowManager.updateWindow(getContext());
                 }
-                titleview.setText("主人主人，闹钟响啦");//关于宠物怎么称呼用户，需要读取设置页面的信息
-                contextview.setText(content);
+                titleView.setText("主人主人，闹钟响啦");//关于宠物怎么称呼用户，需要读取设置页面的信息
+                contextView.setText(content);
                 AnimationDrawable drawable = (AnimationDrawable) ContextCompat.getDrawable(getContext(), R.drawable.messageanim);
-                animview.setBackground(drawable);
+                animView.setBackground(drawable);
                 drawable.start();
                 NowAnimNumber = 0;
             }
         }
     };
+
+    private BroadcastReceiver onPetSizeChanged = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action != null && action.equals("PetSizeChangeListener")) {
+                float scale = intent.getIntExtra("changedSize", PetNumbers.INITIAL_PET_VIEW_SIZE) / (float) PetNumbers.INITIAL_PET_VIEW_SIZE;
+                scaleViewSize(animView, scale);
+                scaleViewSize(messageView, scale);
+                scaleViewSize(view, scale);
+                if (!isMessageVisible) {
+                    viewHeight = animView.getLayoutParams().height;
+                    viewWidth = animView.getLayoutParams().width;
+                } else {
+                    viewHeight = view.getLayoutParams().height;
+                    viewWidth = view.getLayoutParams().width;
+                }
+                MyWindowManager.updateWindow(getContext());
+            }
+        }
+    };
+
+    private void scaleViewSize(View view, float scale) {
+        LayoutParams params = (LayoutParams) view.getLayoutParams();
+        params.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, scale * PetNumbers.INITIAL_PET_VIEW_SIZE, getResources().getDisplayMetrics());
+        params.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, scale * PetNumbers.INITIAL_PET_VIEW_SIZE, getResources().getDisplayMetrics());
+
+        view.setLayoutParams(params);
+    }
 }
 
