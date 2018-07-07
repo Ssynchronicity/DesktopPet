@@ -62,7 +62,7 @@ public class FloatWindowService extends Service{
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        MyWindowManager.updateUsedPercent(getApplicationContext());
+                        //MyWindowManager.updateUsedPercent(getApplicationContext());
                     }
                 });
             }

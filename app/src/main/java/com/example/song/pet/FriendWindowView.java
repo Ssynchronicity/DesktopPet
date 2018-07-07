@@ -4,13 +4,9 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.graphics.drawable.AnimationDrawable;
-import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -24,9 +20,9 @@ import android.widget.TextView;
 
 import java.lang.reflect.Field;
 
-public class FloatWindowView extends RelativeLayout {
-    public static int viewWidth;
-    public static int viewHeight;
+public class FriendWindowView extends RelativeLayout {
+    public static int friendWidth;
+    public static int friendHeight;
     private static int statusBarHeight;
     private WindowManager windowManager;
     private WindowManager.LayoutParams mParams;
@@ -58,34 +54,28 @@ public class FloatWindowView extends RelativeLayout {
     private ValueAnimator quietAnim;
     private boolean isWechat;
     private boolean isAlarm;
-    public FloatWindowView(Context context) {
+    public FriendWindowView(Context context) {
         super(context);
         size = 125;
         windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        LayoutInflater.from(context).inflate(R.layout.float_window,this);
-        view = findViewById(R.id.float_window_id);
-        messageview = findViewById(R.id.layouttt);
-        titleview = (TextView)findViewById(R.id.textview1);
-        contextview = (TextView)findViewById(R.id.textview2);
-        animview = (ImageView)findViewById(R.id.animview);
-        viewWidth = animview.getLayoutParams().width;
-        viewHeight = animview.getLayoutParams().height;
+        LayoutInflater.from(context).inflate(R.layout.friend_window,this);
+        view = findViewById(R.id.ffloat_window_id);
+        messageview = findViewById(R.id.flayouttt);
+        titleview = (TextView)findViewById(R.id.ftextview1);
+        contextview = (TextView)findViewById(R.id.ftextview2);
+        animview = (ImageView)findViewById(R.id.fanimview);
+        friendWidth = animview.getLayoutParams().width;
+        friendHeight = animview.getLayoutParams().height;
         InitAnim();
-        MessageVis = viewWidth == view.getLayoutParams().width;
+        MessageVis = friendWidth == view.getLayoutParams().width;
         PetName = "初音";
-        LocalBroadcastManager.getInstance(context).registerReceiver(onWechat, new IntentFilter("WeChatNotificationListenerService"));
-        LocalBroadcastManager.getInstance(context).registerReceiver(onAlarm, new IntentFilter("AlarmNotificationListenerService"));
-        LocalBroadcastManager.getInstance(context).registerReceiver(onPetSizeChanged, new IntentFilter("PetSizeChangeListener"));
-        LocalBroadcastManager.getInstance(context).registerReceiver(ChangeName, new IntentFilter("ChangeNameListenerService"));
-        LocalBroadcastManager.getInstance(context).registerReceiver(onBluetooth, new IntentFilter("BluetoothCome"));
-        LocalBroadcastManager.getInstance(context).registerReceiver(onBluetoothGo, new IntentFilter("BluetoothGo"));
     }
     private void ChangeMessageVisbility(boolean i) {
         int newx = mParams.x;
         int newy = mParams.y;
         if (MessageVis && !i) {
-            viewWidth = animview.getLayoutParams().width;
-            viewHeight = animview.getLayoutParams().height;
+            friendWidth = animview.getLayoutParams().width;
+            friendHeight = animview.getLayoutParams().height;
             messageview.setVisibility(View.INVISIBLE);
             MyWindowManager.updateWindow(getContext());
             mParams.x = newx + view.getLayoutParams().width-animview.getLayoutParams().width;
@@ -93,8 +83,8 @@ public class FloatWindowView extends RelativeLayout {
             windowManager.updateViewLayout(this, mParams);
         }
         else if (!MessageVis && i) {
-            viewWidth = view.getLayoutParams().width;
-            viewHeight = view.getLayoutParams().height;
+            friendWidth = view.getLayoutParams().width;
+            friendHeight = view.getLayoutParams().height;
             messageview.setVisibility(View.VISIBLE);
             MyWindowManager.updateWindow(getContext());
             mParams.x = newx - view.getLayoutParams().width + animview.getLayoutParams().width;
@@ -204,7 +194,7 @@ public class FloatWindowView extends RelativeLayout {
                 LayoutParams params = (LayoutParams) animview.getLayoutParams();
                 params.width =(int)dip2px(size);
                 animview.setLayoutParams(params);
-                viewWidth = animview.getLayoutParams().width;
+                friendWidth = animview.getLayoutParams().width;
                 MyWindowManager.updateWindow(getContext());
                 sameDrawable.stop();
                 break;
@@ -250,7 +240,7 @@ public class FloatWindowView extends RelativeLayout {
                 LayoutParams params = (LayoutParams) animview.getLayoutParams();
                 params.width =(int)dip2px(size*(float)(165.0/125.0));
                 animview.setLayoutParams(params);
-                viewWidth = animview.getLayoutParams().width;
+                friendWidth = animview.getLayoutParams().width;
                 MyWindowManager.updateWindow(getContext());
                 animview.setBackground(sameDrawable);
                 sameDrawable.start();
@@ -285,12 +275,12 @@ public class FloatWindowView extends RelativeLayout {
                     ChangeMessageVisbility(false);
                     break;
                 case "wechat" :
-                    RelativeLayout.LayoutParams parm = new LayoutParams((int)dip2px(size*(float)(202.0/125.0)),(int)dip2px(size*(float)(100.0/125.0)));
+                    LayoutParams parm = new LayoutParams((int)dip2px(size*(float)(202.0/125.0)),(int)dip2px(size*(float)(100.0/125.0)));
                     parm.addRule(RelativeLayout.ALIGN_PARENT_START);
                     parm.addRule(RelativeLayout.ALIGN_PARENT_TOP);
                     parm.setMargins(0,(int)dip2px(size*(float)(62.0/125.0)),0,0);
                     messageview.setLayoutParams(parm);
-                    RelativeLayout.LayoutParams parm2 = new LayoutParams((int)dip2px(size),(int)dip2px(size));
+                    LayoutParams parm2 = new LayoutParams((int)dip2px(size),(int)dip2px(size));
                     parm2.addRule(RelativeLayout.ALIGN_PARENT_END);
                     parm2.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
                     parm2.setMargins(0,0,0,0);
@@ -305,7 +295,9 @@ public class FloatWindowView extends RelativeLayout {
                 case "quiet":
                     quietAnim.cancel();
                     break;
-                case "bluetoothgo":
+                case "comeon":
+                    break;
+                case "goout":
                     break;
                 default:
                     break;
@@ -332,7 +324,7 @@ public class FloatWindowView extends RelativeLayout {
                         @Override
                         public void onAnimationUpdate(ValueAnimator animation) {
                             mParams.x = (int) (float) animation.getAnimatedValue();
-                            windowManager.updateViewLayout(FloatWindowView.this, mParams);
+                            windowManager.updateViewLayout(FriendWindowView.this, mParams);
                         }
                     });
                     runAnim.setStartDelay(500);
@@ -350,7 +342,7 @@ public class FloatWindowView extends RelativeLayout {
                                 @Override
                                 public void onAnimationUpdate(ValueAnimator animation) {
                                     mParams.y = (int) (float) animation.getAnimatedValue();
-                                    windowManager.updateViewLayout(FloatWindowView.this, mParams);
+                                    windowManager.updateViewLayout(FriendWindowView.this, mParams);
                                 }
                             });
                             runAnim1.setStartDelay(500);
@@ -371,7 +363,7 @@ public class FloatWindowView extends RelativeLayout {
                                         @Override
                                         public void onAnimationUpdate(ValueAnimator animation) {
                                             mParams.x = (int) (float) animation.getAnimatedValue();
-                                            windowManager.updateViewLayout(FloatWindowView.this, mParams);
+                                            windowManager.updateViewLayout(FriendWindowView.this, mParams);
                                         }
                                     });
                                     runAnim2.setStartDelay(400);
@@ -394,7 +386,7 @@ public class FloatWindowView extends RelativeLayout {
                     isWechat = true;
                     titleview.setText(title);
                     contextview.setText(content);
-                    RelativeLayout.LayoutParams parm = new LayoutParams((int)dip2px(size*(float)(202.0/125.0)),(int)dip2px(size*(float)(100.0/125.0)));
+                    LayoutParams parm = new LayoutParams((int)dip2px(size*(float)(202.0/125.0)),(int)dip2px(size*(float)(100.0/125.0)));
                     parm.addRule(RelativeLayout.ALIGN_PARENT_START);
                     parm.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
                     messageview.setLayoutParams(parm);
@@ -411,7 +403,7 @@ public class FloatWindowView extends RelativeLayout {
                         public void onAnimationStart(Animation animation) { }
                         @Override
                         public void onAnimationEnd(Animation animation) {
-                            RelativeLayout.LayoutParams parm1 = new LayoutParams((int)dip2px(size),(int)dip2px(size));
+                            LayoutParams parm1 = new LayoutParams((int)dip2px(size),(int)dip2px(size));
                             parm1.addRule(RelativeLayout.ALIGN_PARENT_END);
                             parm1.addRule(RelativeLayout.ALIGN_PARENT_TOP);
                             parm1.setMargins(0,0,(int)dip2px(size*(float)(30.0/125.0)),0);
@@ -429,7 +421,7 @@ public class FloatWindowView extends RelativeLayout {
 
                                 @Override
                                 public void onAnimationEnd(Animation animation) {
-                                    RelativeLayout.LayoutParams parm2 = new LayoutParams((int)dip2px(size),(int)dip2px(size));
+                                    LayoutParams parm2 = new LayoutParams((int)dip2px(size),(int)dip2px(size));
                                     parm2.addRule(RelativeLayout.ALIGN_PARENT_START);
                                     parm2.addRule(RelativeLayout.ALIGN_PARENT_TOP);
                                     parm2.setMargins(0,(int)dip2px(size*(float)(17.0/125.0)),0,0);
@@ -446,34 +438,6 @@ public class FloatWindowView extends RelativeLayout {
                         public void onAnimationRepeat(Animation animation) { }
                     });
                     break;
-                case "bluebooth" :
-                    ChangeMessageVisbility(false);
-                    ChangeFrameAnim(7);
-                    //ChangeFrameAnim(8);
-                    final int friendx = mParams.x;
-                    final int friendy = mParams.y;
-                    float startx = mParams.x;
-                    float endx = mParams.x+animview.getLayoutParams().width;
-                    ValueAnimator runAnim1 = ValueAnimator.ofObject(new animEvaluator(),startx,endx);
-                    runAnim1.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                        @Override
-                        public void onAnimationUpdate(ValueAnimator animation) {
-                            mParams.x = (int) (float) animation.getAnimatedValue();
-                            windowManager.updateViewLayout(FloatWindowView.this, mParams);
-                        }
-                    });
-                    runAnim1.setStartDelay(1100);
-                    runAnim1.setDuration(100);
-                    runAnim1.start();
-                    runAnim1.addListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationEnd(Animator animation, boolean isReverse) {
-                            MyWindowManager.addWindow(getContext(),friendx,friendy,viewWidth,viewHeight);
-                            ChangeFrameAnim(0);
-                        }
-                    });
-
-                    break;
                 case "quiet":
                     ChangeMessageVisbility(false);
                     ChangeFrameAnim(2);
@@ -485,7 +449,7 @@ public class FloatWindowView extends RelativeLayout {
                             @Override
                             public void onAnimationUpdate(ValueAnimator animation) {
                                 mParams.x = (int) (float) animation.getAnimatedValue();
-                                windowManager.updateViewLayout(FloatWindowView.this, mParams);
+                                windowManager.updateViewLayout(FriendWindowView.this, mParams);
                             }
                         });
                         quietAnim.setStartDelay(5000);
@@ -511,7 +475,7 @@ public class FloatWindowView extends RelativeLayout {
                             @Override
                             public void onAnimationUpdate(ValueAnimator animation) {
                                 mParams.x = (int) (float) animation.getAnimatedValue();
-                                windowManager.updateViewLayout(FloatWindowView.this, mParams);
+                                windowManager.updateViewLayout(FriendWindowView.this, mParams);
                             }
                         });
                         quietAnim.setStartDelay(5000);
@@ -530,8 +494,11 @@ public class FloatWindowView extends RelativeLayout {
                         });
                     }
                     break;
-                case "bluetoothgo":
-                    MyWindowManager.removeFriend(getContext());
+                case "comeon":
+                    ChangeMessageVisbility(false);
+                    break;
+                case "goout":
+                    ChangeMessageVisbility(false);
                     break;
                 default:
                     break;
@@ -594,121 +561,4 @@ public class FloatWindowView extends RelativeLayout {
     public void setParams(WindowManager.LayoutParams params) {
         mParams = params;
     }
-    private BroadcastReceiver onWechat = new BroadcastReceiver() {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            if (action != null && action.equals("WeChatNotificationListenerService")) {
-                    String name = intent.getStringExtra("name");
-                    String text = intent.getStringExtra("text");
-                    String content = "";
-                    if(name != null && text != null) {
-                        content = name + ":" + text;
-                    }
-                    else if(name != null) {
-                        content = name;
-                    }
-                    else if(text != null) {
-                        content = text;
-                    }
-                    if (!isAlarm)
-                        ChangeAttrAnim("wechat",PetName+":有新的微信消息啦",content);
-
-            }
-        }
-    };
-
-    private BroadcastReceiver onAlarm = new BroadcastReceiver() {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            if (action != null && action.equals("AlarmNotificationListenerService")) {
-                String task = intent.getStringExtra("task");
-                String date = intent.getStringExtra("date");
-                String time = intent.getStringExtra("time");
-                String addition = intent.getStringExtra("addition");
-                String content = time;
-                if(task != null) {
-                    content = task + "\n" + content;
-                }
-                if(addition != null) {
-                    content += "\n" + addition;
-                }
-                if(!isWechat)
-                    ChangeAttrAnim("alarm",PetName+"：闹钟响啦",content);
-            }
-        }
-    };
-
-    private BroadcastReceiver onPetSizeChanged = new BroadcastReceiver() {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            if (action != null && action.equals("PetSizeChangeListener")) {
-                int size0 = intent.getIntExtra("changedSize", size);
-                float beishu = (float)size0/size;
-                LayoutParams params = (LayoutParams) animview.getLayoutParams();
-                params.width =(int)(animview.getLayoutParams().width * beishu);
-                params.height =(int)(animview.getLayoutParams().height * beishu);
-                animview.setLayoutParams(params);
-                LayoutParams params1 = (LayoutParams) messageview.getLayoutParams();
-                params1.width =(int)(messageview.getLayoutParams().width * beishu);
-                params1.height =(int)(messageview.getLayoutParams().height * beishu);
-                messageview.setLayoutParams(params1);
-                RelativeLayout.LayoutParams parm = new LayoutParams((int)dip2px(size0*(float)(202.0/125.0)),(int)dip2px(size0*(float)(100.0/125.0)));
-                parm.addRule(RelativeLayout.ALIGN_PARENT_START);
-                parm.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-                parm.setMargins(0,(int)dip2px(size0*(float)(62.0/125.0)),0,0);
-                messageview.setLayoutParams(parm);
-                LayoutParams params2 = (LayoutParams) view.getLayoutParams();
-                params2.width =(int)(view.getLayoutParams().width * beishu);
-                params2.height =(int)(view.getLayoutParams().height * beishu);
-                view.setLayoutParams(params2);
-                size = size0;
-                if (!MessageVis) {
-                    viewWidth = animview.getLayoutParams().width;
-                    viewHeight = animview.getLayoutParams().height;
-                }
-                else {
-                    viewWidth = view.getLayoutParams().width;
-                    viewHeight = view.getLayoutParams().height;
-                }
-                MyWindowManager.updateWindow(getContext());
-                size = size0;
-            }
-        }
-    };
-    private BroadcastReceiver ChangeName = new BroadcastReceiver() {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            if (action != null && action.equals("ChangeNameListenerService")) {
-                PetName = intent.getStringExtra("name");
-            }
-        }
-    };
-    private BroadcastReceiver onBluetooth = new BroadcastReceiver() {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            if (action != null && action.equals("BluetoothCome")) {
-                ChangeAttrAnim("bluebooth","","");
-            }
-        }
-    };
-    private BroadcastReceiver onBluetoothGo = new BroadcastReceiver() {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            if (action != null && action.equals("BluetoothGo")) {
-                ChangeAttrAnim("bluetoothgo","","");
-            }
-        }
-    };
 }

@@ -2,10 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="265dp"
     android:layout_height="225dp"
-    android:id="@+id/float_window_id">
+    android:id="@+id/ffloat_window_id">
 
     <LinearLayout
-        android:id="@+id/layouttt"
+        android:id="@+id/flayouttt"
         android:layout_width="202dp"
         android:layout_height="100dp"
         android:orientation="vertical"
@@ -16,7 +16,7 @@
         android:layout_marginTop="62dp"
         android:visibility="invisible">
         <TextView
-            android:id="@+id/textview1"
+            android:id="@+id/ftextview1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -24,7 +24,7 @@
             android:textStyle="bold"
             android:textAlignment="center"/>
         <TextView
-            android:id="@+id/textview2"
+            android:id="@+id/ftextview2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="2"
@@ -32,7 +32,7 @@
             />
     </LinearLayout>
     <ImageView
-        android:id="@+id/animview"
+        android:id="@+id/fanimview"
         android:layout_width="125dp"
         android:layout_height="125dp"
         android:background="@drawable/shime1"

@@ -9,22 +9,22 @@ import android.view.Display;
 import android.view.Gravity;
 import android.view.WindowManager;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-
 public class MyWindowManager {
     private static FloatWindowView floatWindow;
+    private static FriendWindowView friendWindow;
     private static WindowManager.LayoutParams WindowParams;
+    private static WindowManager.LayoutParams FriendParams;
     private static WindowManager mWindowManager;
     private static ActivityManager mActivityManager;
+    public  static  int screenWidth;
+    public  static  int screenHeight;
     public static void createWindow(Context context) {
         WindowManager windowManager = getWindowManager(context);
         Display display = windowManager.getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        int screenWidth = size.x;
-        int screenHeight = size.y;
+        screenWidth = size.x;
+        screenHeight = size.y;
         if (floatWindow == null) {
             floatWindow = new FloatWindowView(context);
             if (WindowParams == null) {
@@ -54,6 +54,37 @@ public class MyWindowManager {
         WindowParams.height = FloatWindowView.viewHeight;
         floatWindow.setParams(WindowParams);
         windowManager.addView(floatWindow, WindowParams);
+        if (friendWindow != null) {
+            windowManager.removeView(friendWindow);
+            FriendParams.width = FriendWindowView.friendWidth;
+            FriendParams.height = FriendWindowView.friendHeight;
+            friendWindow.setParams(FriendParams);
+            windowManager.addView(friendWindow, FriendParams);
+        }
+    }
+    public static void addWindow(Context context, int x, int y, int width, int height) {
+        WindowManager windowManager = getWindowManager(context);
+        if (friendWindow == null) {
+            friendWindow = new FriendWindowView(context);
+            if (FriendParams == null) {
+                FriendParams= new WindowManager.LayoutParams();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    FriendParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+                } else {
+                    FriendParams.type = WindowManager.LayoutParams.TYPE_PHONE;
+                }
+                FriendParams.format = PixelFormat.RGBA_8888;
+                FriendParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+                        | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+                FriendParams.gravity = Gravity.LEFT | Gravity.TOP;
+                FriendParams.x = x;
+                FriendParams.y = y;
+                FriendParams.width = FriendWindowView.friendWidth;
+                FriendParams.height = FriendWindowView.friendHeight;
+            }
+            friendWindow.setParams(FriendParams);
+            windowManager.addView(friendWindow, FriendParams);
+        }
     }
     public static void removeWindow(Context context) {
         if (floatWindow != null) {
@@ -62,10 +93,11 @@ public class MyWindowManager {
             floatWindow = null;
         }
     }
-    public static void updateUsedPercent(Context context) {
-        if (floatWindow != null) {
-            //TextView percentView = (TextView) floatWindow.findViewById(R.id.textview1);
-            //percentView.setText(getUsedPercentValue(context));
+    public static void removeFriend(Context context) {
+        if (friendWindow != null) {
+            WindowManager windowManager = getWindowManager(context);
+            windowManager.removeView(friendWindow);
+            friendWindow = null;
         }
     }
     public static boolean isWindowShowing() {
@@ -77,36 +109,21 @@ public class MyWindowManager {
         }
         return mWindowManager;
     }
-    private static ActivityManager getActivityManager(Context context) {
-        if (mActivityManager == null) {
-            mActivityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        }
-        return mActivityManager;
-    }
-    private static String getUsedPercentValue(Context context) {
-        String dir = "/proc/meminfo";
-        try {
-            FileReader fr = new FileReader(dir);
-            BufferedReader br = new BufferedReader(fr, 2048);
-            String memoryLine = br.readLine();
-            String subMemoryLine = memoryLine.substring(memoryLine.indexOf("MemTotal:"));
-            br.close();
-            long totalMemorySize = Integer.parseInt(subMemoryLine.replaceAll("\\D+", ""));
-            long availableSize = getAvailableMemory(context) / 1024;
-            int percent = (int) ((totalMemorySize - availableSize) / (float) totalMemorySize * 100);
-            return percent + "%";
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "悬浮窗";
+    public static FloatWindowView getFloatWindow() {
+        return floatWindow;
     }
     private static long getAvailableMemory(Context context) {
         ActivityManager.MemoryInfo mi = new ActivityManager.MemoryInfo();
         getActivityManager(context).getMemoryInfo(mi);
         return mi.availMem;
     }
-
-    public static FloatWindowView getFloatWindow() {
-        return floatWindow;
+    private static ActivityManager getActivityManager(Context context) {
+        if (mActivityManager == null) {
+            mActivityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        }
+        return mActivityManager;
     }
+
+
+
 }
