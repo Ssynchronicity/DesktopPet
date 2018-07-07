@@ -39,12 +39,18 @@
         <receiver android:name=".StartupReceiver">
             <intent-filter>
 
-                <!-- 指定接收的Broadcast Action -->
+                <!--&lt;!&ndash; 指定接收的Broadcast Action &ndash;&gt;-->
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <!-- 指定Action的种类，即Android系统启动后第一个运行的应用程序 -->
+                <!--&lt;!&ndash; 指定Action的种类，即Android系统启动后第一个运行的应用程序 &ndash;&gt;-->
                 <category android:name="android.intent.category.HOME" />
             </intent-filter>
         </receiver>
+
+        <!--<service-->
+            <!--android:name=".view.StartupService"-->
+            <!--android:enabled="true"-->
+            <!--android:exported="true"-->
+            <!--android:permission="android.permission.BIND_JOB_SERVICE" />-->
 
         <receiver android:name=".AlarmReceiver"></receiver>
 
