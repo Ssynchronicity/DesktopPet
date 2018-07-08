@@ -1,6 +1,7 @@
 package com.example.song.pet;
 
 import android.app.ActivityManager;
+import android.app.Notification;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -27,8 +28,14 @@ public class FloatWindowService extends Service{
     }
 
     @Override
+    public void onCreate() {
+        super.onCreate();
+        startForeground(1,new Notification());
+    }
+    @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i("FWService", "Started");
+
         if (timer == null) {
             timer = new Timer();
             timer.scheduleAtFixedRate(new RefreshTask(),0,500);

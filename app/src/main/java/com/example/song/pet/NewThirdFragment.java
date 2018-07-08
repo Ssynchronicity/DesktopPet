@@ -85,8 +85,8 @@ public class NewThirdFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 editor.putBoolean("autoStart", b);
+                Log.i("autoStart", Boolean.toString(b));
                 editor.commit();
-                // TODO: Handle auto start staff
             }
         });
 

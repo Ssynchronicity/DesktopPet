@@ -26,11 +26,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".NewAlarmActivity" />
 
         <service android:name=".FloatWindowService" />
 
         <activity android:name=".SettingActivity" />
-        <activity android:name=".AlarmActivity" />
         <activity
             android:name=".Bluetooth.DeviceListActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -48,6 +48,13 @@
         </receiver>
         <receiver android:name=".AlarmReceiver" />
 
+        <!--<service-->
+            <!--android:name=".view.StartupService"-->
+            <!--android:enabled="true"-->
+            <!--android:exported="true"-->
+            <!--android:permission="android.permission.BIND_JOB_SERVICE" />-->
+
+
         <service
             android:name=".DownloadService"
             android:enabled="true"
@@ -60,7 +67,6 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".NewAlarmActivity"></activity>
     </application>
 
 </manifest>
