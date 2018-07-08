@@ -23,6 +23,8 @@ import android.widget.ImageView;
 
 import com.example.song.pet.view.NoScrollViewPager;
 
+import org.litepal.LitePal;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +32,7 @@ import java.util.List;
 public class MainActivity extends FragmentActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
 
     private FirstFragment fg1;
-    private SecondFragment fg2;
+    private NewSecondFragment fg2;
     private NewThirdFragment fg3;
 
     private NoScrollViewPager mPager;
@@ -71,7 +73,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         fManager = getSupportFragmentManager();
         initViewPager();
         initViews();
-        initSharedPreferences();
+        initSpAndAlarmDb();
         clearChoice();
         setTab(0);
 //        if(!isEnabled()){
@@ -154,7 +156,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     {
         fragmentsList = new ArrayList<>();
         fg1 = new FirstFragment();
-        fg2 = new SecondFragment();
+//        fg2 = new SecondFragment();
+        fg2 = new NewSecondFragment();
         fg3 = new NewThirdFragment();
         fragmentsList.add(fg1);
         fragmentsList.add(fg2);
@@ -162,7 +165,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         mAdapter = new MyFragmentPagerAdapter(fManager,fragmentsList);
     }
 
-    private void initSharedPreferences(){
+    private void initSpAndAlarmDb() {
         sharedPreferences = getSharedPreferences("pet", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
@@ -188,6 +191,15 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             editor.putBoolean("autoStart", false);
             editor.putInt("petSize", PetNumbers.INITIAL_PET_VIEW_SIZE);
             editor.apply();
+            LitePal.deleteDatabase("PetAlarm"); // 清空数据库
+
+//            for (int i = 0; i < 3; i++) {
+//                PetAlarmModel alarm = new PetAlarmModel();
+//                alarm.setTitle("Item " + i);
+//                alarm.setHour(23);
+//                alarm.setMinute(59);
+//                alarm.save();
+//            }
         }
     }
 

@@ -29,6 +29,7 @@ import com.example.song.pet.Bluetooth.DeviceListActivity;
 //import com.example.pet201644.Bluetooth.BluetoothChatService;
 //import com.example.pet201644.Bluetooth.DeviceListActivity;
 
+@Deprecated
 public class ThirdFragment extends Fragment {
     ToolbarView third_toolbarivew;
     Switch Switch_show,Switch_always,Switch_on,Switch_set,Switch_time;
@@ -63,8 +64,7 @@ public class ThirdFragment extends Fragment {
     private BluetoothChatService mChatService = null;
 
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView=inflater.inflate(R.layout.fragment_third,container, false);
         initview(rootView);
         Switch_show.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -137,8 +137,8 @@ public class ThirdFragment extends Fragment {
 
         return rootView;
     }
-    public void initview(View rootView)
-    {
+
+    public void initview(View rootView) {
         third_toolbarivew = (ToolbarView)rootView.findViewById(R.id.third_toolbarview);
         third_toolbarivew.setToolbar_text("桌面宠物");
         // third_toolbarivew.settoolbar_more_Visibility(View.GONE);
@@ -170,10 +170,12 @@ public class ThirdFragment extends Fragment {
         Switch_time.setChecked(time);
 
     }
+
     private void setupChat() {
         // Initialize the BluetoothChatService to perform bluetooth connections
         mChatService = new BluetoothChatService(getActivity(), mHandler);
     }
+
     // The Handler that gets information back from the BluetoothChatService
     private final Handler mHandler = new Handler() {
         @Override
@@ -207,9 +209,9 @@ public class ThirdFragment extends Fragment {
             }
         }
     };
+
     //用于宠物配对
-    private void Petpair()
-    {
+    private void Petpair() {
         Toast toast= Toast.makeText(getActivity().getApplicationContext(), "宠物配对成功！", Toast.LENGTH_SHORT);
         toast.show();
         editor.putBoolean("isSecondUnlock",true);
@@ -235,6 +237,7 @@ public class ThirdFragment extends Fragment {
                 }
         }
     }
+
     private void connectDevice(Intent data, boolean secure) {
         // Get the device MAC address
         String address = data.getExtras()

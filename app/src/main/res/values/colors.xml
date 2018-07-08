@@ -15,9 +15,17 @@
     <color name="primary">#FF03A9F4</color>
     <color name="primary_dark">#FF0288D1</color>
     <color name="status_bar_color">@color/primary_dark</color>
-    <color name="new_ui_theme_smokeblue">#6F899E</color>
-    <color name="new_ui_theme_darkblue">#244867</color>
+    <color name="new_ui_theme_smoke_blue">#6F899E</color>
+    <color name="new_ui_theme_dark_blue">#244867</color>
     <color name="new_ui_theme_gray">#b4b4b4</color>
     <color name="new_ui_theme_black">#505050</color>
-    <color name="new_ui_theme_textgray">#969696</color>
+    <color name="new_ui_theme_text_gray">#969696</color>
+    <color name="new_ui_theme_text_black">#505050</color>
+    <color name="new_ui_theme_alarm_icon_color1">#7d7dab</color>
+    <color name="new_ui_theme_alarm_icon_color2">#71a791</color>
+    <color name="new_ui_theme_alarm_icon_color3">#f5d4a7</color>
+    <color name="new_ui_theme_alarm_icon_color4">#a0bacf</color>
+    <color name="new_ui_theme_alarm_icon_color5">#256c50</color>
+    <color name="new_ui_theme_alarm_delete">#ed5e68</color>
+    <color name="new_ui_theme_alarm_edit">#8388a4</color>
 </resources>

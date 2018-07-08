@@ -1,10 +1,7 @@
+
 package com.example.song.pet;
 
-import android.app.Activity;
-import android.app.Activity.*;
-import java.util.Calendar;
 import android.app.AlarmManager;
-import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -12,9 +9,8 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import com.example.song.pet.AlarmActivity;
-
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
@@ -24,16 +20,18 @@ import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.song.pet.view.SwipeListLayout;
+
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Calendar;
 import java.util.HashSet;
-import android.view.View.OnClickListener;
+import java.util.List;
 import java.util.Set;
 
 import static android.content.Context.ALARM_SERVICE;
 
-
+@Deprecated
 public class SecondFragment extends Fragment {
     public ToolbarView second_toolbarview;
     List<String> s1 = new ArrayList<>();
@@ -309,16 +307,16 @@ public class SecondFragment extends Fragment {
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
             LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View l = inflater.inflate(R.layout.swipelist,null);
-            final SwipeListLayout sll_main = (SwipeListLayout) l.findViewById(R.id.sll_main);
-            TextView tv_top = (TextView) l.findViewById(R.id.tv_top);
-            TextView tv_delete = (TextView) l.findViewById(R.id.tv_delete);
+            View l = inflater.inflate(R.layout.alarm_list_item, null);
+            final SwipeListLayout sll_main = (SwipeListLayout) l.findViewById(R.id.alarm_list_item);
+//            TextView tv_top = (TextView) l.findViewById(R.id.tv_top);
+            TextView tv_delete = (TextView) l.findViewById(R.id.list_item_delete);
 
-            TextView list_up_text = (TextView)l.findViewById(R.id.list_up_text);
-            TextView list_up_center_text = (TextView)l.findViewById(R.id.list_up_center_text);
+            TextView list_up_text = (TextView) l.findViewById(R.id.list_item_title);
+            TextView list_up_center_text = (TextView) l.findViewById(R.id.list_item_detail);
             TextView list_down_left_text = (TextView)l.findViewById(R.id.list_down_left_text);
-            TextView list_down_right_text = (TextView)l.findViewById(R.id.list_down_right_text);
-            switch1 = (Switch) l.findViewById(R.id.switch1);
+            TextView list_down_right_text = (TextView) l.findViewById(R.id.list_item_time);
+            switch1 = (Switch) l.findViewById(R.id.list_item_switch);
             //list_checkbox.setFocusable(false);
             c.add(switch1);
             //System.out.println(position);
@@ -408,58 +406,58 @@ public class SecondFragment extends Fragment {
 
             sll_main.setOnSwipeStatusListener(new MyOnSlipStatusListener(
                     sll_main));
-            tv_top.setOnClickListener(new OnClickListener() {
-
-                @Override
-                public void onClick(View view) {
-                    sll_main.setStatus(SwipeListLayout.Status.Close, true);
-                    int n = position;
-                    String task=s1.get(n);
-                    String date =s2.get(n);
-                    String time=s3.get(n);
-                    String beizhu=s4.get(n);
-                    s1.remove(n);
-
-                    s2.remove(n);
-                    s3.remove(n);
-                    s4.remove(n);
-                    B.remove(n);
-                    c.remove(n);
-                    //根据闹钟id现在数据出里面查找出对应闹钟的PendingIntent编号,然后再在数据库里面删除对应闹钟记录
-                    // String SELECT_SQL="select count from alarm_task where _id="+n;
-                    Cursor cursor=dbhelper.getReadableDatabase().rawQuery("select _id,count from alarm_task where task=? and addition=? and date1=? and time=?", new String[]{task,beizhu, date, time});
-                    final int index1 = cursor.getColumnIndex("_id");
-                    final int index2 = cursor.getColumnIndex("count");
-                    int  pid=0,id=0;
-                    if(cursor.moveToFirst()) {
-                        id = cursor.getInt(index1);
-                        pid = cursor.getInt(index2);
-                    }
-                    String DELETE_SQL="delete from alarm_task where _id="+id;
-                    dbhelper.getReadableDatabase().execSQL(DELETE_SQL);
-                    //无携带数据的Intent对象
-                    Intent intent=new Intent(getActivity(),AlarmReceiver.class);
-
-                    //创建PendingIntent对象
-                    PendingIntent pi= PendingIntent.getBroadcast(getActivity(), pid, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                    //获取系统闹钟服务
-                    AlarmManager am=(AlarmManager)getActivity().getSystemService(ALARM_SERVICE);
-                    //删除指定pi对应的闹钟时间
-                    am.cancel(pi);
-                    Toast.makeText(getActivity(),"修改闹钟", Toast.LENGTH_SHORT).show();
-                    cursor.close();
-
-                    Intent intent1=new Intent(getActivity(),AlarmActivity.class);
-                    startActivity(intent1);
-
-                    notifyDataSetChanged();
-                    // sll_main.setStatus(SwipeListLayout.Status.Close, true);
-                    // String str = s1.get(position);
-                    // s1.remove(position);
-                    // s1.add(0, str);
-                    // notifyDataSetChanged();
-                }
-            });
+//            tv_top.setOnClickListener(new OnClickListener() {
+//
+//                @Override
+//                public void onClick(View view) {
+//                    sll_main.setStatus(SwipeListLayout.Status.Close, true);
+//                    int n = position;
+//                    String task=s1.get(n);
+//                    String date =s2.get(n);
+//                    String time=s3.get(n);
+//                    String beizhu=s4.get(n);
+//                    s1.remove(n);
+//
+//                    s2.remove(n);
+//                    s3.remove(n);
+//                    s4.remove(n);
+//                    B.remove(n);
+//                    c.remove(n);
+//                    //根据闹钟id现在数据出里面查找出对应闹钟的PendingIntent编号,然后再在数据库里面删除对应闹钟记录
+//                    // String SELECT_SQL="select count from alarm_task where _id="+n;
+//                    Cursor cursor=dbhelper.getReadableDatabase().rawQuery("select _id,count from alarm_task where task=? and addition=? and date1=? and time=?", new String[]{task,beizhu, date, time});
+//                    final int index1 = cursor.getColumnIndex("_id");
+//                    final int index2 = cursor.getColumnIndex("count");
+//                    int  pid=0,id=0;
+//                    if(cursor.moveToFirst()) {
+//                        id = cursor.getInt(index1);
+//                        pid = cursor.getInt(index2);
+//                    }
+//                    String DELETE_SQL="delete from alarm_task where _id="+id;
+//                    dbhelper.getReadableDatabase().execSQL(DELETE_SQL);
+//                    //无携带数据的Intent对象
+//                    Intent intent=new Intent(getActivity(),AlarmReceiver.class);
+//
+//                    //创建PendingIntent对象
+//                    PendingIntent pi= PendingIntent.getBroadcast(getActivity(), pid, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//                    //获取系统闹钟服务
+//                    AlarmManager am=(AlarmManager)getActivity().getSystemService(ALARM_SERVICE);
+//                    //删除指定pi对应的闹钟时间
+//                    am.cancel(pi);
+//                    Toast.makeText(getActivity(),"修改闹钟", Toast.LENGTH_SHORT).show();
+//                    cursor.close();
+//
+//                    Intent intent1=new Intent(getActivity(),AlarmActivity.class);
+//                    startActivity(intent1);
+//
+//                    notifyDataSetChanged();
+//                    // sll_main.setStatus(SwipeListLayout.Status.Close, true);
+//                    // String str = s1.get(position);
+//                    // s1.remove(position);
+//                    // s1.add(0, str);
+//                    // notifyDataSetChanged();
+//                }
+//            });
             tv_delete.setOnClickListener(new OnClickListener() {
 
                 @Override
