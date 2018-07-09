@@ -361,7 +361,7 @@ public class FloatWindowView extends RelativeLayout {
         NowAnimNumber = i;
     }
 
-    public void ChangeAttrAnim(String i, String title, String content) {
+    public void ChangeAttrAnim(String i, final String title, final String content) {
         if (NowAttrAnim.equals(i) && !i.equals("quiet")) {
             titleview.setText(title);
             contextview.setText(content);
@@ -560,7 +560,7 @@ public class FloatWindowView extends RelativeLayout {
                     runAnim1.addListener(new AnimatorListenerAdapter() {
                         @Override
                         public void onAnimationEnd(Animator animation, boolean isReverse) {
-                            MyWindowManager.addWindow(getContext(), friendx, friendy, PetName, PetSkin);
+                            MyWindowManager.addWindow(getContext(), friendx, friendy, content, title);
                             ChangeFrameAnim(0);
                         }
                     });
@@ -769,6 +769,8 @@ public class FloatWindowView extends RelativeLayout {
                 updateViewPosition();
                 break;
             case MotionEvent.ACTION_UP:
+                isWechat = false;
+                isAlarm = false;
                 ChangeAttrAnim("quiet", "", "");
                 break;
             default:
@@ -896,7 +898,10 @@ public class FloatWindowView extends RelativeLayout {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if (action != null && action.equals("com.bluetooth.visit")) {
-                ChangeAttrAnim("bluebooth", "", "");
+                String skin = intent.getStringExtra("VisitPetSkin");
+                String name = intent.getStringExtra("VisitPetName");
+                ChangeAttrAnim("bluebooth", skin, name);
+
             }
         }
     };

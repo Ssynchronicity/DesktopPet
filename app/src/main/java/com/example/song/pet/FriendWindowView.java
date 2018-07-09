@@ -75,8 +75,8 @@ public class FriendWindowView extends RelativeLayout {
         InitAnim();
         MessageVis = friendWidth == view.getLayoutParams().width;
         ChangeFrameAnim(0);
-        LocalBroadcastManager.getInstance(context).registerReceiver(onBluetooth, new IntentFilter("com.bluetooth.visit"));
-        LocalBroadcastManager.getInstance(context).registerReceiver(onBluetoothGo, new IntentFilter("com.bluetooth.back"));
+        //LocalBroadcastManager.getInstance(context).registerReceiver(onBluetooth, new IntentFilter("com.bluetooth.visit"));
+        //LocalBroadcastManager.getInstance(context).registerReceiver(onBluetoothGo, new IntentFilter("com.bluetooth.back"));
     }
     private void ChangeMessageVisbility(boolean i) {
         int newx = mParams.x;
