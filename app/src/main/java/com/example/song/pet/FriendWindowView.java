@@ -4,9 +4,13 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.graphics.drawable.AnimationDrawable;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -69,6 +73,10 @@ public class FriendWindowView extends RelativeLayout {
         InitAnim();
         MessageVis = friendWidth == view.getLayoutParams().width;
         PetName = "初音";
+
+
+        LocalBroadcastManager.getInstance(context).registerReceiver(onBluetooth, new IntentFilter("com.bluetooth.visit"));
+        LocalBroadcastManager.getInstance(context).registerReceiver(onBluetoothGo, new IntentFilter("com.bluetooth.back"));
     }
     private void ChangeMessageVisbility(boolean i) {
         int newx = mParams.x;
@@ -561,4 +569,27 @@ public class FriendWindowView extends RelativeLayout {
     public void setParams(WindowManager.LayoutParams params) {
         mParams = params;
     }
+
+    private BroadcastReceiver onBluetooth = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action != null && action.equals("com.bluetooth.selfvisit")) {
+                PetName = intent.getStringExtra("VisitPetName");
+                ChangeAttrAnim("bluebooth", "", "");
+            }
+        }
+    };
+    private BroadcastReceiver onBluetoothGo = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action != null && action.equals("com.bluetooth.selfback")) {
+                PetName = intent.getStringExtra("BackPetName");
+                ChangeAttrAnim("bluetoothgo", "", "");
+            }
+        }
+    };
 }

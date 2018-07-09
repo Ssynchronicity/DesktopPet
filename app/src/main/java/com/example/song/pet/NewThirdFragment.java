@@ -18,6 +18,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.example.song.pet.Bluetooth.MyBluetoothActivity;
 import com.warkiz.widget.IndicatorSeekBar;
 import com.warkiz.widget.OnSeekChangeListener;
 import com.warkiz.widget.SeekParams;
@@ -94,7 +95,8 @@ public class NewThirdFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //TODO: Start bluetooth activity
-                Log.i("Click", "Bluetooth entry is clicked.");
+                Intent intent = new Intent(getActivity(), MyBluetoothActivity.class);
+                startActivity(intent);
             }
         });
 
