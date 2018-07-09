@@ -37,6 +37,8 @@
 
         <activity android:name=".SettingActivity" />
 
+        <activity android:name=".Bluetooth.MyBluetoothActivity"></activity>
+
         <receiver android:name=".StartupReceiver">
             <intent-filter>
 
@@ -66,6 +68,8 @@
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
         </service>
+
+
 
     </application>
 
