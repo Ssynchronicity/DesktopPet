@@ -35,11 +35,6 @@
         <service android:name=".FloatWindowService" />
 
         <!--<activity android:name=".SettingActivity" />-->
-        <activity
-            android:name=".Bluetooth.DeviceListActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:label="@string/select_device"
-            android:theme="@android:style/Theme.Holo.Light.Dialog" />
         <!--<activity android:name=".SettingActivity" />-->
 
         <activity android:name=".Bluetooth.MyBluetoothActivity" />
