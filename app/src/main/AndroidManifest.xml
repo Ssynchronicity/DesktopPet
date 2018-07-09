@@ -37,7 +37,9 @@
 
         <activity android:name=".SettingActivity" />
 
-        <activity android:name=".Bluetooth.MyBluetoothActivity"></activity>
+        <activity android:name=".Bluetooth.MyBluetoothActivity"
+                android:parentActivityName=".SettingActivity"
+            />
 
         <receiver android:name=".StartupReceiver">
             <intent-filter>
