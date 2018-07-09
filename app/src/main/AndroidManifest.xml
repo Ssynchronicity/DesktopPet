@@ -35,7 +35,13 @@
 
         <service android:name=".FloatWindowService" />
 
-        <activity android:name=".SettingActivity" />
+        <!--<activity android:name=".SettingActivity" />-->
+        <activity
+            android:name=".Bluetooth.DeviceListActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/select_device"
+            android:theme="@android:style/Theme.Holo.Light.Dialog" />
+        <!--<activity android:name=".SettingActivity" />-->
 
         <activity android:name=".Bluetooth.MyBluetoothActivity"
                 android:parentActivityName=".SettingActivity"
@@ -52,11 +58,11 @@
         </receiver>
         <receiver android:name=".AlarmReceiver" />
 
-        <!--<service-->
-            <!--android:name=".view.StartupService"-->
-            <!--android:enabled="true"-->
-            <!--android:exported="true"-->
-            <!--android:permission="android.permission.BIND_JOB_SERVICE" />-->
+        <!-- <service -->
+        <!-- android:name=".view.StartupService" -->
+        <!-- android:enabled="true" -->
+        <!-- android:exported="true" -->
+        <!-- android:permission="android.permission.BIND_JOB_SERVICE" /> -->
 
 
         <service
@@ -71,8 +77,7 @@
             </intent-filter>
         </service>
 
-
-
+        <activity android:name=".EditPetActivity"></activity>
     </application>
 
 </manifest>

@@ -38,7 +38,7 @@ public class NewThirdFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_third_new, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_new_third, container, false);
         init(rootView);
         setListener();
         return rootView;
