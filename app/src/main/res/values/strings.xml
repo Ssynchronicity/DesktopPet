@@ -27,12 +27,11 @@
     <string name="pet_name_2">布莱克</string>
     <string name="pet_name_3">初音</string>
     <string name="pet_name_4">大哥</string>
-    <string name="pet_name_5">gumi</string>
-    <string name="pet_name_6">海绵宝宝</string>
-    <string name="pet_name_7">剑三</string>
-    <string name="pet_name_8">卡修斯</string>
-    <string name="pet_name_9">皮卡丘</string>
-    <string name="pet_name_10">瑞尔斯</string>
+    <string name="pet_name_5">海绵宝宝</string>
+    <string name="pet_name_6">剑三</string>
+    <string name="pet_name_7">卡修斯</string>
+    <string name="pet_name_8">皮卡丘</string>
+    <string name="pet_name_9">瑞尔斯</string>
 
 
 </resources>

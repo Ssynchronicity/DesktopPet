@@ -65,6 +65,11 @@ public class NewThirdFragment extends Fragment {
 
         isPetOnSwitch.setChecked(isPetOn);
         isAutoStartSwitch.setChecked(isAutoStart);
+
+        // 将宠物预览设置为当前宠物的图片
+        petSizePreview.setImageResource(
+                getDrawableIdByName(
+                        getActivity().getSharedPreferences("pet", Context.MODE_PRIVATE).getString("current", "chuyin")));
     }
 
     private void setListener() {
@@ -123,9 +128,23 @@ public class NewThirdFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        // 将宠物预览设置为当前宠物的图片
+        petSizePreview.setImageResource(
+                getDrawableIdByName(
+                        getActivity().getSharedPreferences("pet", Context.MODE_PRIVATE).getString("current", "chuyin")));
+    }
+
     private void setPetSizePreviewHeight(int heightInDp) {
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) petSizePreview.getLayoutParams();
         params.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, heightInDp, getResources().getDisplayMetrics());
         petSizePreview.setLayoutParams(params);
+    }
+
+    // 通过名称来查找Drawable资源ID，不需要带后缀
+    private int getDrawableIdByName(String name) {
+        return getResources().getIdentifier(name, "drawable", getActivity().getApplicationInfo().packageName);
     }
 }

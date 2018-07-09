@@ -81,6 +81,7 @@
             android:inputType="text"
             android:maxLength="12"
             android:shadowColor="@color/new_ui_theme_text_gray"
+            android:textColor="@color/new_ui_theme_text_black"
             android:textSize="18sp" />
 
     </android.support.design.widget.TextInputLayout>
@@ -102,6 +103,7 @@
             android:inputType="text"
             android:maxLength="12"
             android:shadowColor="@color/new_ui_theme_text_gray"
+            android:textColor="@color/new_ui_theme_text_black"
             android:textSize="18sp" />
 
     </android.support.design.widget.TextInputLayout>
@@ -135,20 +137,22 @@
     <!--app:layout_constraintEnd_toEndOf="@id/gl3"-->
     <!--android:layout_marginTop="20dp">-->
     <!--</android.support.v7.widget.ListViewCompat>-->
-    <com.example.song.pet.PileLayout
-        android:id="@+id/select_pet_slider"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp"
         app:layout_constraintEnd_toEndOf="@id/gl3"
         app:layout_constraintStart_toStartOf="@id/gl2"
         app:layout_constraintTop_toBottomOf="@id/change_current_pet_title"
-        pile:displayCount="1.5"
-        pile:interval="10dp"
-        pile:scaleStep="0.22"
-        pile:widthHeightRate="1.22">
+        android:layout_marginTop="20dp">
 
-    </com.example.song.pet.PileLayout>
+        <com.example.song.pet.PileLayout
+            android:id="@+id/select_pet_slider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            pile:displayCount="1.6"
+            pile:interval="50dp"
+            pile:scaleStep="0.5"
+            pile:widthHeightRate="1.1" />
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

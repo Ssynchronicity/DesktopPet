@@ -114,24 +114,24 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         editor = sharedPreferences.edit();
         if (!sharedPreferences.contains("firstRun")) {
             // LitePal.deleteDatabase("PetAlarm"); // 清空数据库
-            // TODO:将可用宠物的数据加入数据库
-//            new PetModel(getResources().getString(R.string.pet_name_1), "主人", "None", true, downloadUrl).save();
-//            new PetModel(getResources().getString(R.string.pet_name_2), "主人", "None", true, downloadUrl).save();
-//            new PetModel(getResources().getString(R.string.pet_name_3), "主人", "None", true, downloadUrl).save();
-//            new PetModel(getResources().getString(R.string.pet_name_4), "主人", "None", true, downloadUrl).save();
-//            new PetModel(getResources().getString(R.string.pet_name_5), "主人", "None", true, downloadUrl).save();
-//            new PetModel(getResources().getString(R.string.pet_name_6), "主人", "None", true, downloadUrl).save();
-//            new PetModel(getResources().getString(R.string.pet_name_7), "主人", "None", true, downloadUrl).save();
-//            new PetModel(getResources().getString(R.string.pet_name_8), "主人", "None", true, downloadUrl).save();
-//            new PetModel(getResources().getString(R.string.pet_name_9), "主人", "None", true, downloadUrl).save();
-//            new PetModel(getResources().getString(R.string.pet_name_10), "主人", "None", true, downloadUrl).save();
+            // 将可用宠物的数据加入数据库
+            new PetModel("billd", getResources().getString(R.string.pet_name_1), "主人").save();
+            new PetModel("bulaike", getResources().getString(R.string.pet_name_2), "主人").save();
+            new PetModel("chuyin", getResources().getString(R.string.pet_name_3), "主人").save();
+            new PetModel("dage", getResources().getString(R.string.pet_name_4), "主人").save();
+            new PetModel("haimian", getResources().getString(R.string.pet_name_5), "主人").save();
+            new PetModel("jiansan", getResources().getString(R.string.pet_name_6), "主人").save();
+            new PetModel("kaxiusi", getResources().getString(R.string.pet_name_7), "主人").save();
+            new PetModel("pikaqiu", getResources().getString(R.string.pet_name_8), "主人").save();
+            new PetModel("ruiersi", getResources().getString(R.string.pet_name_9), "主人").save();
 
             editor.putBoolean("firstRun", true);
             editor.putBoolean("petOn", true);
             editor.putBoolean("autoStart", false);
             editor.putInt("petSize", PetNumbers.INITIAL_PET_VIEW_SIZE);
             editor.putLong("currentPetId", 1);
-            editor.apply();
+
+            editor.commit();
 
 
         }

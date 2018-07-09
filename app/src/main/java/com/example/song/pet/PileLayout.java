@@ -28,9 +28,9 @@ public class PileLayout extends ViewGroup {
     private OnClickListener onClickListener;
 
     // 以下三个参数，可通过属性定制
-    private int interval = 30; // view之间的间隔
+    private int interval = 50; // view之间的间隔
     private float sizeRatio = 1.1f;
-    private float scaleStep = 0.36f;
+    private float scaleStep = 0.5f;
 
     private int everyWidth;
     private int everyHeight;
@@ -496,6 +496,10 @@ public class PileLayout extends ViewGroup {
         return animateValue;
     }
 
+
+    private void clearOthersBackground(int position) {
+
+    }
     /**
      * 适配器
      */
@@ -528,5 +532,6 @@ public class PileLayout extends ViewGroup {
          */
         public void onItemClick(View view, int position) {
         }
+
     }
 }

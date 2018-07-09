@@ -43,7 +43,7 @@
             android:theme="@android:style/Theme.Holo.Light.Dialog" />
         <!--<activity android:name=".SettingActivity" />-->
 
-        <activity android:name=".Bluetooth.MyBluetoothActivity"></activity>
+        <activity android:name=".Bluetooth.MyBluetoothActivity" />
 
         <receiver android:name=".StartupReceiver">
             <intent-filter>
@@ -64,10 +64,6 @@
 
 
         <service
-            android:name=".DownloadService"
-            android:enabled="true"
-            android:exported="true" />
-        <service
             android:name=".WeChatNotificationListenerService"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
             <intent-filter>
@@ -75,7 +71,7 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".EditPetActivity"></activity>
+        <activity android:name=".EditPetActivity" />
     </application>
 
 </manifest>

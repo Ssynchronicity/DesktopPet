@@ -31,6 +31,8 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.7.0'
     implementation 'org.litepal.android:core:2.0.0'
     implementation 'com.xiaochendev.progressroundbtn:library:2.0.0'
+    implementation 'com.orhanobut:dialogplus:1.11@aar'
+
 }
 
 /**
