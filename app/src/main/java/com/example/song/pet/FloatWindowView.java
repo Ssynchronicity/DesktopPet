@@ -680,6 +680,35 @@ public class FloatWindowView extends RelativeLayout {
                     }
                     break;
                 case "bluetoothgo":
+                    switch (PetSkin) {
+                        case "billd":
+                            animview.setBackgroundResource(R.drawable.billd37);
+                            break;
+                        case "bulaike":
+                            animview.setBackgroundResource(R.drawable.bulaike37);
+                            break;
+                        case "ruiersi":
+                            animview.setBackgroundResource(R.drawable.ruiersi37);
+                            break;
+                        case "dage":
+                            animview.setBackgroundResource(R.drawable.dage37);
+                            break;
+                        case "haimian":
+                            animview.setBackgroundResource(R.drawable.haimian37);
+                            break;
+                        case "jiansan":
+                            animview.setBackgroundResource(R.drawable.jiansan37);
+                            break;
+                        case "kaxiusi":
+                            animview.setBackgroundResource(R.drawable.kaxiusi37);
+                            break;
+                        case "pikaqiu":
+                            animview.setBackgroundResource(R.drawable.pikaqiu37);
+                            break;
+                        default:
+                            animview.setBackgroundResource(R.drawable.chuyin37);
+                            break;
+                    }
                     MyWindowManager.removeFriend(getContext());
                     break;
                 default:
@@ -899,8 +928,9 @@ public class FloatWindowView extends RelativeLayout {
             String action = intent.getAction();
             if (action != null && action.equals("com.bluetooth.visit")) {
                 String skin = intent.getStringExtra("VisitPetSkin");
-                String name = intent.getStringExtra("VisitPetName");
-                ChangeAttrAnim("bluebooth", skin, name);
+                //String name = intent.getStringExtra("VisitPetName");
+                ChangeAttrAnim("bluebooth", skin, "小傻子");
+                //ChangeAttrAnim("wechat",skin,name);
 
             }
         }

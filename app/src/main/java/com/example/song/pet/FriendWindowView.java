@@ -58,7 +58,7 @@ public class FriendWindowView extends RelativeLayout {
     private ValueAnimator quietAnim;
     private boolean isWechat;
     private boolean isAlarm;
-    public String PetSkin;
+    private String PetSkin;
     private AnimManager animManager = new AnimManager();
     public FriendWindowView(Context context) {
         super(context);
@@ -72,9 +72,11 @@ public class FriendWindowView extends RelativeLayout {
         animview = (ImageView)findViewById(R.id.fanimview);
         friendWidth = animview.getLayoutParams().width;
         friendHeight = animview.getLayoutParams().height;
-        InitAnim();
+        //InitAnim();
         MessageVis = friendWidth == view.getLayoutParams().width;
-        ChangeFrameAnim(0);
+
+        PetSkin = "chuyin";
+        InitAnim();
         //LocalBroadcastManager.getInstance(context).registerReceiver(onBluetooth, new IntentFilter("com.bluetooth.visit"));
         //LocalBroadcastManager.getInstance(context).registerReceiver(onBluetoothGo, new IntentFilter("com.bluetooth.back"));
     }

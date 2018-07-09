@@ -12,6 +12,7 @@ import android.view.WindowManager;
 public class MyWindowManager {
     private static FloatWindowView floatWindow;
     private static FriendWindowView friendWindow;
+    public static String FriendPetSkin;
     private static WindowManager.LayoutParams WindowParams;
     private static WindowManager.LayoutParams FriendParams;
     private static WindowManager mWindowManager;
@@ -84,7 +85,7 @@ public class MyWindowManager {
                 FriendParams.height = FriendWindowView.friendHeight;
             }
             friendWindow.setParams(FriendParams);
-            friendWindow.PetSkin = PetSkin;
+            FriendPetSkin = PetSkin;
             friendWindow.PetName = PetName;
             windowManager.addView(friendWindow, FriendParams);
         }

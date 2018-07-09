@@ -35,7 +35,7 @@
         android:id="@+id/fanimview"
         android:layout_width="125dp"
         android:layout_height="125dp"
-        android:background="@drawable/pikaqiu1"
+        android:background="@drawable/chuyin1"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true" />
 
