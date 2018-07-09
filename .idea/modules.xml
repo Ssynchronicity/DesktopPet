@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/DesktopPet.iml" filepath="$PROJECT_DIR$/DesktopPet.iml" />
+      <module fileurl="file://F:\00Android_Porject\DesktopPet2\DesktopPet.iml" filepath="F:\00Android_Porject\DesktopPet2\DesktopPet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DesktopPet2.iml" filepath="$PROJECT_DIR$/DesktopPet2.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://F:\00Android_Porject\DesktopPet2\app\app.iml" filepath="F:\00Android_Porject\DesktopPet2\app\app.iml" />
     </modules>
   </component>
 </project>

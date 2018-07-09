@@ -575,7 +575,7 @@ public class FriendWindowView extends RelativeLayout {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if (action != null && action.equals("com.bluetooth.selfvisit")) {
+            if (action != null && action.equals("com.bluetooth.visit")) {
                 PetName = intent.getStringExtra("VisitPetName");
                 ChangeAttrAnim("bluebooth", "", "");
             }
@@ -586,8 +586,8 @@ public class FriendWindowView extends RelativeLayout {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if (action != null && action.equals("com.bluetooth.selfback")) {
-                PetName = intent.getStringExtra("BackPetName");
+            if (action != null && action.equals("com.bluetooth.back")) {
+                PetName = intent.getStringExtra("VisitPetName");
                 ChangeAttrAnim("bluetoothgo", "", "");
             }
         }

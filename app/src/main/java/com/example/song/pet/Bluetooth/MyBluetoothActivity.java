@@ -35,6 +35,8 @@ import com.example.song.pet.R;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.OnItemClickListener;
 
+import android.content.SharedPreferences;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -48,6 +50,7 @@ import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 public class MyBluetoothActivity extends AppCompatActivity {
     //宠物状态
     private int petState;
+    private SharedPreferences sharedPreferences;
 
     // 蓝牙资源
     private BluetoothAdapter mBluetoothAdapter = null;
@@ -158,7 +161,7 @@ public class MyBluetoothActivity extends AppCompatActivity {
                                 mChatService.write("召成".getBytes());
                                 //告诉悬浮窗需要移除对方宠物
                                 Intent backIntent = new Intent();
-                                backIntent.putExtra("BackPetName", readMessage.substring(2));
+                                backIntent.putExtra("VisitPetName", readMessage.substring(2));
                                 backIntent.setAction("com.bluetooth.back");
                                 LocalBroadcastManager.getInstance(MyBluetoothActivity.this).sendBroadcast(backIntent);
 
@@ -184,14 +187,14 @@ public class MyBluetoothActivity extends AppCompatActivity {
                                     petState = Constants.ARRIVED;
                                     //加载页面完成
                                     //发一个广播移除自己的宠物
+                                    String MyPetName = sharedPreferences.getString("currentPet", "");
                                     Intent visitSuccessintent = new Intent();
-                                    visitSuccessintent.putExtra("MyPetName", "自己宠物");//读取自己宠物的名字
                                     visitSuccessintent.setAction("com.bluetooth.selfback");
                                     LocalBroadcastManager.getInstance(MyBluetoothActivity.this).sendBroadcast(visitSuccessintent);
 
                                     final AlertDialog.Builder alertDialog3 = new AlertDialog.Builder(MyBluetoothActivity.this);
                                     alertDialog3.setTitle("拜访成功消息提示");
-                                    alertDialog3.setMessage("您的宠物xxx出去玩啦~");
+                                    alertDialog3.setMessage("您的宠物"+MyPetName+"出去玩啦~");
                                     alertDialog3.setPositiveButton("确定", null);
                                     alertDialog3.setIcon(R.drawable.paw);
 
@@ -213,14 +216,14 @@ public class MyBluetoothActivity extends AppCompatActivity {
                                     petState = Constants.HOME;
                                     //召回页面完成
                                     //发一个广播显示自己的宠物
+                                    String MyPetName = sharedPreferences.getString("currentPet", "");
                                     Intent backSuccessintent = new Intent();
-                                    backSuccessintent.putExtra("PetName", "自己宠物");//读取自己宠物的名字
                                     backSuccessintent.setAction("com.bluetooth.selfvisit");
                                     LocalBroadcastManager.getInstance(MyBluetoothActivity.this).sendBroadcast(backSuccessintent);
 
                                     final AlertDialog.Builder alertDialog4 = new AlertDialog.Builder(MyBluetoothActivity.this);
                                     alertDialog4.setTitle("召回成功消息提示");
-                                    alertDialog4.setMessage("您的宠物xxx已经回来啦~");
+                                    alertDialog4.setMessage("您的宠物"+MyPetName+"已经回来啦~");
                                     alertDialog4.setPositiveButton("确定", null);
                                     alertDialog4.setIcon(R.drawable.paw);
 
@@ -308,8 +311,9 @@ public class MyBluetoothActivity extends AppCompatActivity {
         anim = (Button) findViewById(R.id.bluetooth_anim);
         device_view = (ListView) findViewById(R.id.bluetooth_device);
         scan_status = (TextView) findViewById(R.id.bluetooth_scan_status);
-        //初始化宠物状态
+        //初始化宠物状态和名字
         petState = Constants.HOME;
+        sharedPreferences = (MyBluetoothActivity.this).getSharedPreferences("pet", Context.MODE_PRIVATE);
         // 初始化蓝牙
         initBluetoothConfig();
         // 初始化数据以及注册扫描事件
@@ -341,7 +345,8 @@ public class MyBluetoothActivity extends AppCompatActivity {
                                             petState = Constants.LEAVING;
                                             // 下面这个函数将会把消息发到另外一个蓝牙设备中, 如果需要可以在执行函数前对字符串进行处理
                                             // 这里需要读取自己宠物名字
-                                            mChatService.write((message + "要拜访的宠物").getBytes());
+                                            String MyPetName = sharedPreferences.getString("currentPet", "");
+                                            mChatService.write((message + MyPetName).getBytes());
                                         }
                                         break;
                                     case "召回":
@@ -350,7 +355,8 @@ public class MyBluetoothActivity extends AppCompatActivity {
                                             petState = Constants.GOBACK;
                                             // 下面这个函数将会把消息发到另外一个蓝牙设备中, 如果需要可以在执行函数前对字符串进行处理
                                             // 这里需要读取自己宠物的名字
-                                            mChatService.write((message + "要召回的宠物").getBytes());
+                                            String MyPetName = sharedPreferences.getString("currentPet", "");
+                                            mChatService.write((message + MyPetName).getBytes());
                                         }
                                         break;
                                 }
