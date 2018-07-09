@@ -1,8 +1,10 @@
 package com.example.song.pet;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -185,8 +187,14 @@ public class EditPetActivity extends AppCompatActivity {
                 currentPet.save();
 
                 SharedPreferences.Editor editor = getSharedPreferences("pet", Context.MODE_PRIVATE).edit();
-                editor.putString("current", currentPet.getOriginalName());
+                editor.putString("current", currentPet.getOriginalName());   // 当前使用的宠物模型的名字，全小写字母
+                editor.putString("currentAppellation", currentPet.getAppellation());  // 当前宠物对主人的称呼，默认是“主人”
                 editor.commit();
+
+                // 发送广播更改悬浮窗的宠物模型
+                Intent intent = new Intent("changePetModel");
+                intent.putExtra("originalName", currentPet.getOriginalName());
+                LocalBroadcastManager.getInstance(EditPetActivity.this).sendBroadcast(intent);
 
                 Toast.makeText(EditPetActivity.this, "宠物信息修改成功！", Toast.LENGTH_SHORT).show();
                 EditPetActivity.this.finish();

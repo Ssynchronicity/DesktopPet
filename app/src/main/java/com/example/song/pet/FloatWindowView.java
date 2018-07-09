@@ -22,7 +22,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.litepal.LitePal;
+
 import java.lang.reflect.Field;
+import java.util.List;
 import java.util.Locale;
 
 public class FloatWindowView extends RelativeLayout {
@@ -81,6 +84,7 @@ public class FloatWindowView extends RelativeLayout {
         LocalBroadcastManager.getInstance(context).registerReceiver(ChangeName, new IntentFilter("ChangeNameListenerService"));
         LocalBroadcastManager.getInstance(context).registerReceiver(onBluetooth, new IntentFilter("com.bluetooth.selfvisit"));
         LocalBroadcastManager.getInstance(context).registerReceiver(onBluetoothGo, new IntentFilter("com.bluetooth.selfback"));
+        LocalBroadcastManager.getInstance(context).registerReceiver(onChangePet, new IntentFilter("changePetModel"));
     }
 
     private void ChangeMessageVisbility(boolean i) {
@@ -717,4 +721,31 @@ public class FloatWindowView extends RelativeLayout {
             }
         }
     };
+
+    private BroadcastReceiver onChangePet = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action != null && action.equals("changePetModel")) {
+                PetModel currentPet = findPetModelByOriginName(intent.getStringExtra("originalName"));
+
+                // TODO: 更换宠物资源，并刷新FloatWindowView
+                // 宠物拼音名可通过
+                currentPet.getOriginalName(); // 获取宠物拼音名
+                currentPet.getName();  // 获取主人给宠物设置的名称
+                currentPet.getAppellation(); // 获取宠物对主人的称呼
+                return;
+            }
+        }
+    };
+
+
+    // 通过宠物的拼音名来查找数据库中的宠物信息，返回一个PetModel
+    private PetModel findPetModelByOriginName(String oname) {
+        List<PetModel> pets = LitePal.findAll(PetModel.class);
+        for (PetModel pet : pets) {
+            if (pet.getOriginalName().equals(oname)) return pet;
+        }
+        return null;
+    }
 }

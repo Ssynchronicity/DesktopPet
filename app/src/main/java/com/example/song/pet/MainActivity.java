@@ -129,7 +129,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             editor.putBoolean("petOn", true);
             editor.putBoolean("autoStart", false);
             editor.putInt("petSize", PetNumbers.INITIAL_PET_VIEW_SIZE);
-            editor.putLong("currentPetId", 1);
 
             editor.commit();
 
