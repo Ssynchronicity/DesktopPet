@@ -19,45 +19,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class EditPetActivity extends AppCompatActivity {
-//    class PetItemAdapter extends ArrayAdapter<PetModel> {
-//        private int resourceId;
-//
-//        class MyViewHolder {
-//            TextView petName;
-//            ImageView petImage;
-//            AnimDownloadProgressButton petResDownloadBtn;
-//        }
-//
-//        PetItemAdapter(@NonNull Context context, int resource, @NonNull List<PetModel> objects) {
-//            super(context, resource, objects);
-//            this.resourceId = resource;
-//        }
-//
-//        @NonNull
-//        @Override
-//        public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-//            final PetModel pet = getItem(position);
-//            View view;
-//            final MyViewHolder viewHolder;
-//            if (convertView == null) {
-//                view = LayoutInflater.from(getContext()).inflate(resourceId, parent, false);
-//                viewHolder = new MyViewHolder();
-//                viewHolder.petName = view.findViewById(R.id.list_item_time);
-//                viewHolder.petImage = view.findViewById(R.id.list_item_title);
-//                viewHolder.petResDownloadBtn = view.findViewById(R.id.list_item_edit);
-//                view.setTag(viewHolder);
-//            } else {
-//                view = convertView;
-//                viewHolder = (MyViewHolder) view.getTag();
-//            }
-//
-//
-//
-//            return view;
-//        }
-//
-//
-//    }
 
     private EditText mNameInput;
     private EditText mAppellationInput;
@@ -152,8 +113,6 @@ public class EditPetActivity extends AppCompatActivity {
                 currentPetOriginalName = petModelName.get(position).toLowerCase();
                 mAppellationInput.setText(selectedPet.getAppellation());
                 mNameInput.setText(selectedPet.getName());
-
-                // 更新SP/数据库
 
             }
         });

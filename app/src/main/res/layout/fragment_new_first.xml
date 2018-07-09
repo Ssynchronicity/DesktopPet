@@ -3,225 +3,215 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
-    <ScrollView
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="宠物主页"
+        android:textColor="@color/new_ui_theme_smoke_blue"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/gl1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/gl1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <RelativeLayout
+        android:id="@+id/currentPetDisplayWrapper"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="150dp"
+        android:background="@drawable/single_bottom_border_bold"
+        app:layout_constraintTop_toBottomOf="@id/gl1"
+        android:paddingBottom="20dp">
 
-        <android.support.constraint.ConstraintLayout
+        <ImageView
+            android:id="@+id/currentPetDisplay"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="100dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/pika_window" />
+    </RelativeLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/edit_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:backgroundTint="@color/new_ui_theme_smoke_blue"
+        android:src="@drawable/alarm_item_edit"
+        app:elevation="4dp"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toTopOf="@+id/gl2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/gl2"
+        app:pressedTranslationZ="16dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/gl2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.8" />
+
+    <TextView
+        android:id="@+id/currentPetProfileTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
+        android:text="宠物资料"
+        android:textColor="@color/new_ui_theme_text_gray"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/currentPetDisplayWrapper" />
+
+    <RelativeLayout
+        android:id="@+id/profile_name_wrapper"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/currentPetProfileTitle">
+
+        <LinearLayout
+            android:id="@+id/profile_name_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="1dp"
+                android:background="@drawable/pets_light"
+                android:backgroundTint="@color/new_ui_theme_text_black" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="宠物主页"
-                android:textColor="@color/new_ui_theme_smoke_blue"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="@id/gl1"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_marginStart="5dp"
+                android:text="昵称"
+                android:textColor="@color/new_ui_theme_text_black"
+                android:textSize="16sp" />
 
-            <android.support.constraint.Guideline
-                android:id="@+id/gl1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.1" />
+        </LinearLayout>
 
-            <RelativeLayout
-                android:id="@+id/currentPetDisplayWrapper"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:background="@drawable/single_bottom_border_bold"
-                app:layout_constraintTop_toBottomOf="@id/gl1">
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profile_name_title"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:text="皮卡"
+            android:textColor="@color/new_ui_theme_dark_blue"
+            android:textSize="16sp" />
+    </RelativeLayout>
 
-                <ImageView
-                    android:id="@+id/currentPetDisplay"
-                    android:layout_width="match_parent"
-                    android:layout_height="125dp"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/pika_window" />
-            </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/profile_birthday_wrapper"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_name_wrapper">
 
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/edit_fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:backgroundTint="@color/new_ui_theme_smoke_blue"
-                android:src="@drawable/alarm_item_edit"
-                app:elevation="4dp"
-                app:fabSize="normal"
-                app:layout_constraintBottom_toTopOf="@+id/gl2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/gl2"
-                app:pressedTranslationZ="16dp" />
+        <LinearLayout
+            android:id="@+id/profile_birthday_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
 
-            <android.support.constraint.Guideline
-                android:id="@+id/gl2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.8" />
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="1dp"
+                android:background="@drawable/birthday_icon"
+                android:backgroundTint="@color/new_ui_theme_text_black" />
 
             <TextView
-                android:id="@+id/currentPetProfileTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="25dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="25dp"
-                android:text="宠物资料"
-                android:textColor="@color/new_ui_theme_text_gray"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/currentPetDisplayWrapper" />
+                android:layout_marginStart="5dp"
+                android:text="生日"
+                android:textColor="@color/new_ui_theme_text_black"
+                android:textSize="16sp" />
 
-            <RelativeLayout
-                android:id="@+id/profile_name_wrapper"
-                android:layout_width="0dp"
-                android:layout_height="80dp"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/currentPetProfileTitle">
+        </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/profile_name_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="5dp"
-                    android:orientation="horizontal">
+        <TextView
+            android:id="@+id/birthday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profile_birthday_title"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:text="2018-07-08"
+            android:textColor="@color/new_ui_theme_dark_blue"
+            android:textSize="16sp" />
+    </RelativeLayout>
 
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_marginTop="1dp"
-                        android:background="@drawable/pets_light"
-                        android:backgroundTint="@color/new_ui_theme_text_black" />
+    <RelativeLayout
+        android:id="@+id/profile_appellation_wrapper"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_birthday_wrapper">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:text="昵称"
-                        android:textColor="@color/new_ui_theme_text_black"
-                        android:textSize="16sp" />
+        <LinearLayout
+            android:id="@+id/profile_appellation_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
 
-                </LinearLayout>
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="1dp"
+                android:background="@drawable/appellation_icon"
+                android:backgroundTint="@color/new_ui_theme_text_black" />
 
-                <TextView
-                    android:id="@+id/name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/profile_name_title"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="5dp"
-                    android:text="皮卡"
-                    android:textColor="@color/new_ui_theme_dark_blue"
-                    android:textSize="16sp" />
-            </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="称呼你为"
+                android:textColor="@color/new_ui_theme_text_black"
+                android:textSize="16sp" />
 
-            <RelativeLayout
-                android:id="@+id/profile_birthday_wrapper"
-                android:layout_width="0dp"
-                android:layout_height="80dp"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/profile_name_wrapper">
+        </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/profile_birthday_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="5dp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_marginTop="1dp"
-                        android:background="@drawable/birthday_icon"
-                        android:backgroundTint="@color/new_ui_theme_text_black" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:text="生日"
-                        android:textColor="@color/new_ui_theme_text_black"
-                        android:textSize="16sp" />
-
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/birthday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/profile_birthday_title"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="5dp"
-                    android:text="2018-07-08"
-                    android:textColor="@color/new_ui_theme_dark_blue"
-                    android:textSize="16sp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/profile_appellation_wrapper"
-                android:layout_width="0dp"
-                android:layout_height="80dp"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/profile_birthday_wrapper">
-
-                <LinearLayout
-                    android:id="@+id/profile_appellation_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="5dp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_marginTop="1dp"
-                        android:background="@drawable/appellation_icon"
-                        android:backgroundTint="@color/new_ui_theme_text_black" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:text="称呼你为"
-                        android:textColor="@color/new_ui_theme_text_black"
-                        android:textSize="16sp" />
-
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/appellation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/profile_appellation_title"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="5dp"
-                    android:text="主人"
-                    android:textColor="@color/new_ui_theme_dark_blue"
-                    android:textSize="16sp" />
-            </RelativeLayout>
-        </android.support.constraint.ConstraintLayout>
-    </ScrollView>
-
+        <TextView
+            android:id="@+id/appellation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profile_appellation_title"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:text="主人"
+            android:textColor="@color/new_ui_theme_dark_blue"
+            android:textSize="16sp" />
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
