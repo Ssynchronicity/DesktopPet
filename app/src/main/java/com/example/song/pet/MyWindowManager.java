@@ -62,7 +62,8 @@ public class MyWindowManager {
             windowManager.addView(friendWindow, FriendParams);
         }
     }
-    public static void addWindow(Context context, int x, int y, int width, int height) {
+
+    public static void addWindow(Context context, int x, int y, String PetName, String PetSkin) {
         WindowManager windowManager = getWindowManager(context);
         if (friendWindow == null) {
             friendWindow = new FriendWindowView(context);
@@ -83,6 +84,8 @@ public class MyWindowManager {
                 FriendParams.height = FriendWindowView.friendHeight;
             }
             friendWindow.setParams(FriendParams);
+            friendWindow.PetSkin = PetSkin;
+            friendWindow.PetName = PetName;
             windowManager.addView(friendWindow, FriendParams);
         }
     }
