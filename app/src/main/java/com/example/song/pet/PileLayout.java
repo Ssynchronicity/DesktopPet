@@ -18,10 +18,6 @@ import android.widget.FrameLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by xmuSistone on 2017/5/12.
- */
-
 public class PileLayout extends ViewGroup {
 
     private final int mMaximumVelocity;

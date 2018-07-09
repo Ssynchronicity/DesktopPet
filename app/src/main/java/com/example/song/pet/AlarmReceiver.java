@@ -11,9 +11,6 @@ import android.support.v4.content.LocalBroadcastManager;
 
 import java.util.Locale;
 
-/**
- * Created by Lxr on 2016/4/22.
- */
 public class AlarmReceiver extends BroadcastReceiver {
 
     static final int NOTIFICATION_ID = 0x123;

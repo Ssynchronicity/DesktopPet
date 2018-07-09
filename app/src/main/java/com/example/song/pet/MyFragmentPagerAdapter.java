@@ -1,8 +1,5 @@
 package com.example.song.pet;
 
-/**
- * Created by wujia on 2016/4/4.
- */
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

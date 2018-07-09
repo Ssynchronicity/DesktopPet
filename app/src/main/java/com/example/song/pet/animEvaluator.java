@@ -2,9 +2,6 @@ package com.example.song.pet;
 
 import android.animation.TypeEvaluator;
 
-/**
- * Created by Lxr on 2016/3/20.
- */
 public class animEvaluator implements TypeEvaluator {
     @Override
     public Object evaluate(float fraction, Object startValue, Object endValue) {
