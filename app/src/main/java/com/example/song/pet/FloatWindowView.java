@@ -114,8 +114,8 @@ public class FloatWindowView extends RelativeLayout {
         LocalBroadcastManager.getInstance(context).registerReceiver(onAlarm, new IntentFilter("AlarmNotificationListenerService"));
         LocalBroadcastManager.getInstance(context).registerReceiver(onPetSizeChanged, new IntentFilter("PetSizeChangeListener"));
         LocalBroadcastManager.getInstance(context).registerReceiver(ChangeName, new IntentFilter("ChangeNameListenerService"));
-        LocalBroadcastManager.getInstance(context).registerReceiver(onBluetooth, new IntentFilter("com.bluetooth.selfvisit"));
-        LocalBroadcastManager.getInstance(context).registerReceiver(onBluetoothGo, new IntentFilter("com.bluetooth.selfback"));
+        LocalBroadcastManager.getInstance(context).registerReceiver(onBluetooth, new IntentFilter("com.bluetooth.visit"));
+        LocalBroadcastManager.getInstance(context).registerReceiver(onBluetoothGo, new IntentFilter("com.bluetooth.back"));
         LocalBroadcastManager.getInstance(context).registerReceiver(onChangePet, new IntentFilter("changePetModel"));
     }
 
