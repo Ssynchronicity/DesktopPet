@@ -130,6 +130,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             editor.putBoolean("autoStart", false);
             editor.putInt("petSize", PetNumbers.INITIAL_PET_VIEW_SIZE);
 
+            editor.putString("current", "chuyin");   // 当前使用的宠物模型的名字，全小写字母
+            editor.putString("currentName", "初音");  // 当前宠物的昵称
+            editor.putString("currentAppellation", "主人");  // 当前宠物对主人的称呼，默认是“主人”
+
             editor.commit();
 
 

@@ -147,6 +147,7 @@ public class EditPetActivity extends AppCompatActivity {
 
                 SharedPreferences.Editor editor = getSharedPreferences("pet", Context.MODE_PRIVATE).edit();
                 editor.putString("current", currentPet.getOriginalName());   // 当前使用的宠物模型的名字，全小写字母
+                editor.putString("currentName", currentPet.getName());  // 当前宠物的昵称
                 editor.putString("currentAppellation", currentPet.getAppellation());  // 当前宠物对主人的称呼，默认是“主人”
                 editor.commit();
 
