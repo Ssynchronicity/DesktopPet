@@ -129,19 +129,24 @@ public class MyBluetoothActivity extends AppCompatActivity {
                         }
                     }else {
                         String action = readMessage.substring(0, 2);
+                        String petInfo = readMessage.substring(2);
+                        String[] array = petInfo.split("&&&", 2);
+                        String petSkin = array[0];
+                        String petName = array[1];
                         switch (action) {
                             case "拜访":
                                 //告诉对方拜访成功
                                 mChatService.write("拜成".getBytes());
                                 //告诉悬浮窗需要显示对方宠物
                                 Intent visitIntent = new Intent();
-                                visitIntent.putExtra("VisitPetName", readMessage.substring(2));
+                                visitIntent.putExtra("VisitPetSkin", petSkin);
+                                visitIntent.putExtra("VisitPetName", petName);
                                 visitIntent.setAction("com.bluetooth.visit");
                                 LocalBroadcastManager.getInstance(MyBluetoothActivity.this).sendBroadcast(visitIntent);
 
                                 final AlertDialog.Builder alertDialog1 = new AlertDialog.Builder(MyBluetoothActivity.this);
                                 alertDialog1.setTitle("收到拜访消息提示");
-                                alertDialog1.setMessage("宠物"+readMessage.substring(2)+"过来玩啦~");
+                                alertDialog1.setMessage("宠物"+petName+"过来玩啦~");
                                 alertDialog1.setPositiveButton("确定", null);
                                 alertDialog1.setIcon(R.drawable.paw);
 
@@ -161,13 +166,14 @@ public class MyBluetoothActivity extends AppCompatActivity {
                                 mChatService.write("召成".getBytes());
                                 //告诉悬浮窗需要移除对方宠物
                                 Intent backIntent = new Intent();
-                                backIntent.putExtra("VisitPetName", readMessage.substring(2));
+                                backIntent.putExtra("VisitPetSkin", petSkin);
+                                backIntent.putExtra("VisitPetName", petName);
                                 backIntent.setAction("com.bluetooth.back");
                                 LocalBroadcastManager.getInstance(MyBluetoothActivity.this).sendBroadcast(backIntent);
 
                                 final AlertDialog.Builder alertDialog2 = new AlertDialog.Builder(MyBluetoothActivity.this);
                                 alertDialog2.setTitle("收到召回消息提示");
-                                alertDialog2.setMessage("宠物"+readMessage.substring(2)+"要走啦~");
+                                alertDialog2.setMessage("宠物"+petName+"要走啦~");
                                 alertDialog2.setPositiveButton("确定", null);
                                 alertDialog2.setIcon(R.drawable.paw);
 
@@ -345,8 +351,9 @@ public class MyBluetoothActivity extends AppCompatActivity {
                                             petState = Constants.LEAVING;
                                             // 下面这个函数将会把消息发到另外一个蓝牙设备中, 如果需要可以在执行函数前对字符串进行处理
                                             // 这里需要读取自己宠物名字
-                                            String MyPetName = sharedPreferences.getString("currentPet", "");
-                                            mChatService.write((message + MyPetName).getBytes());
+                                            String MyPetName = sharedPreferences.getString("currentName", "");
+                                            String MyPetSkin = sharedPreferences.getString("current", "");
+                                            mChatService.write((message + MyPetSkin + "&&&" + MyPetName).getBytes());
                                         }
                                         break;
                                     case "召回":
@@ -355,8 +362,9 @@ public class MyBluetoothActivity extends AppCompatActivity {
                                             petState = Constants.GOBACK;
                                             // 下面这个函数将会把消息发到另外一个蓝牙设备中, 如果需要可以在执行函数前对字符串进行处理
                                             // 这里需要读取自己宠物的名字
-                                            String MyPetName = sharedPreferences.getString("currentPet", "");
-                                            mChatService.write((message + MyPetName).getBytes());
+                                            String MyPetName = sharedPreferences.getString("currentName", "");
+                                            String MyPetSkin = sharedPreferences.getString("current", "");
+                                            mChatService.write((message + MyPetSkin + "&&&" + MyPetName).getBytes());
                                         }
                                         break;
                                 }

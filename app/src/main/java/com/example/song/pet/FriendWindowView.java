@@ -4,9 +4,13 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.graphics.drawable.AnimationDrawable;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -71,8 +75,8 @@ public class FriendWindowView extends RelativeLayout {
         InitAnim();
         MessageVis = friendWidth == view.getLayoutParams().width;
         ChangeFrameAnim(0);
-        //LocalBroadcastManager.getInstance(context).registerReceiver(onBluetooth, new IntentFilter("com.bluetooth.visit"));
-        //LocalBroadcastManager.getInstance(context).registerReceiver(onBluetoothGo, new IntentFilter("com.bluetooth.back"));
+        LocalBroadcastManager.getInstance(context).registerReceiver(onBluetooth, new IntentFilter("com.bluetooth.visit"));
+        LocalBroadcastManager.getInstance(context).registerReceiver(onBluetoothGo, new IntentFilter("com.bluetooth.back"));
     }
     private void ChangeMessageVisbility(boolean i) {
         int newx = mParams.x;
@@ -732,28 +736,31 @@ public class FriendWindowView extends RelativeLayout {
         mParams = params;
     }
 
-    /* private BroadcastReceiver onBluetooth = new BroadcastReceiver() {
+    private BroadcastReceiver onBluetooth = new BroadcastReceiver() {
 
-         @Override
-         public void onReceive(Context context, Intent intent) {
-             String action = intent.getAction();
-             if (action != null && action.equals("com.bluetooth.visit")) {
-                 PetName = intent.getStringExtra("VisitPetName");
-                 ChangeAttrAnim("bluebooth", "", "");
-             }
-         }
-     };
-     private BroadcastReceiver onBluetoothGo = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action != null && action.equals("com.bluetooth.visit")) {
+                PetName = intent.getStringExtra("VisitPetName");
+                PetSkin = intent.getStringExtra("VisitPetSkin");
+                //ChangeAttrAnim("bluebooth", "", "");
+            }
+        }
+    };
+    private BroadcastReceiver onBluetoothGo = new BroadcastReceiver() {
 
-         @Override
-         public void onReceive(Context context, Intent intent) {
-             String action = intent.getAction();
-             if (action != null && action.equals("com.bluetooth.back")) {
-                 PetName = intent.getStringExtra("VisitPetName");
-                 ChangeAttrAnim("bluetoothgo", "", "");
-             }
-         }
-     };*/
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action != null && action.equals("com.bluetooth.back")) {
+                PetName = intent.getStringExtra("VisitPetName");
+                PetSkin = intent.getStringExtra("VisitPetSkin");
+                //ChangeAttrAnim("bluetoothgo", "", "");
+            }
+        }
+    };
+
     public class AnimManager {
         public AnimationDrawable walk(String petname) {
             AnimationDrawable walkDrawable = new AnimationDrawable();
