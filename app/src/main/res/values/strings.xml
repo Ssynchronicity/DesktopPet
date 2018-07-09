@@ -19,4 +19,20 @@
 
     <string name="res_server_root_path">http://139.199.9.244:8082/media/static/DesktopPet/</string>
     <string name="download_test_res">gumi.zip</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="pet_name_1">billd彼尔德</string>
+    <string name="pet_name_2">布莱克</string>
+    <string name="pet_name_3">初音</string>
+    <string name="pet_name_4">大哥</string>
+    <string name="pet_name_5">gumi</string>
+    <string name="pet_name_6">海绵宝宝</string>
+    <string name="pet_name_7">剑三</string>
+    <string name="pet_name_8">卡修斯</string>
+    <string name="pet_name_9">皮卡丘</string>
+    <string name="pet_name_10">瑞尔斯</string>
+
+
 </resources>

@@ -28,4 +28,5 @@
     <color name="new_ui_theme_alarm_icon_color5">#256c50</color>
     <color name="new_ui_theme_alarm_delete">#ed5e68</color>
     <color name="new_ui_theme_alarm_edit">#8388a4</color>
+    <color name="fab_icon_tint">#DDFFFFFF</color>
 </resources>

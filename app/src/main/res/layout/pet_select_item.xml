@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="180dp"
+    android:layout_height="200dp"
+    android:paddingBottom="20dp"
+    android:paddingTop="20dp">
+
+    <ImageView
+        android:id="@+id/pet_img"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/pika_edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/pet_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="皮卡"
+        android:textColor="@color/new_ui_theme_text_black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pet_img"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ImageView
+        android:id="@+id/gl"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/single_bottom_border_dark"
+        app:layout_constraintTop_toBottomOf="@id/pet_img" />
+
+</android.support.constraint.ConstraintLayout>

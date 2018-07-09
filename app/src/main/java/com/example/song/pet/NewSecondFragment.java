@@ -161,7 +161,7 @@ public class NewSecondFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_second_new, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_new_second, container, false);
         initViews(rootView);
         setListener();
         initAlarmListFromDatabase();
