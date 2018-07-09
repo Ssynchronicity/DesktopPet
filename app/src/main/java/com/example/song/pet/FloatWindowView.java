@@ -79,8 +79,8 @@ public class FloatWindowView extends RelativeLayout {
         LocalBroadcastManager.getInstance(context).registerReceiver(onAlarm, new IntentFilter("AlarmNotificationListenerService"));
         LocalBroadcastManager.getInstance(context).registerReceiver(onPetSizeChanged, new IntentFilter("PetSizeChangeListener"));
         LocalBroadcastManager.getInstance(context).registerReceiver(ChangeName, new IntentFilter("ChangeNameListenerService"));
-        LocalBroadcastManager.getInstance(context).registerReceiver(onBluetooth, new IntentFilter("BluetoothCome"));
-        LocalBroadcastManager.getInstance(context).registerReceiver(onBluetoothGo, new IntentFilter("BluetoothGo"));
+        LocalBroadcastManager.getInstance(context).registerReceiver(onBluetooth, new IntentFilter("com.bluetooth.selfvisit"));
+        LocalBroadcastManager.getInstance(context).registerReceiver(onBluetoothGo, new IntentFilter("com.bluetooth.selfback"));
     }
 
     private void ChangeMessageVisbility(boolean i) {
@@ -702,7 +702,7 @@ public class FloatWindowView extends RelativeLayout {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if (action != null && action.equals("BluetoothCome")) {
+            if (action != null && action.equals("com.bluetooth.selfvisit")) {
                 ChangeAttrAnim("bluebooth", "", "");
             }
         }
@@ -712,7 +712,7 @@ public class FloatWindowView extends RelativeLayout {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if (action != null && action.equals("BluetoothGo")) {
+            if (action != null && action.equals("com.bluetooth.selfback")) {
                 ChangeAttrAnim("bluetoothgo", "", "");
             }
         }

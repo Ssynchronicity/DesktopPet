@@ -30,6 +30,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.7.0'
     implementation 'org.litepal.android:core:2.0.0'
     implementation 'com.contrarywind:Android-PickerView:4.1.4'
+    implementation 'com.orhanobut:dialogplus:1.11@aar'
 }
 
 /**
