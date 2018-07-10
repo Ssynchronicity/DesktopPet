@@ -8,6 +8,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.drawable.AnimationDrawable;
 import android.support.v4.content.LocalBroadcastManager;
@@ -65,9 +66,11 @@ public class FloatWindowView extends RelativeLayout {
     private String PetSkin;
     private String PetString;
     private AnimManager animManager = new AnimManager();
+    private SharedPreferences sharedPreferences;
     public FloatWindowView(Context context) {
         super(context);
         size = 125;
+        sharedPreferences = context.getSharedPreferences("pet", Context.MODE_PRIVATE);
         windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         LayoutInflater.from(context).inflate(R.layout.float_window, this);
         view = findViewById(R.id.float_window_id);
@@ -75,7 +78,9 @@ public class FloatWindowView extends RelativeLayout {
         titleview = (TextView) findViewById(R.id.textview1);
         contextview = (TextView) findViewById(R.id.textview2);
         animview = (ImageView) findViewById(R.id.animview);
-        PetSkin = "chuyin";
+//        PetSkin = "chuyin";
+        PetSkin = sharedPreferences.getString("current", "chuyin");
+        PetString = sharedPreferences.getString("currentAppellation", "主人");
         switch (PetSkin) {
             case "billd":
                 animview.setBackgroundResource(R.drawable.billd1);
@@ -109,7 +114,7 @@ public class FloatWindowView extends RelativeLayout {
         viewHeight = animview.getLayoutParams().height;
         InitAnim();
         MessageVis = viewWidth == view.getLayoutParams().width;
-        PetName = "初音";
+        PetName = sharedPreferences.getString("currentName", "初音");
         LocalBroadcastManager.getInstance(context).registerReceiver(onWechat, new IntentFilter("WeChatNotificationListenerService"));
         LocalBroadcastManager.getInstance(context).registerReceiver(onAlarm, new IntentFilter("AlarmNotificationListenerService"));
         LocalBroadcastManager.getInstance(context).registerReceiver(onPetSizeChanged, new IntentFilter("PetSizeChangeListener"));

@@ -116,10 +116,21 @@
         android:layout_marginStart="3dp"
         android:layout_marginTop="20dp"
         android:text="切换宠物"
-        android:textColor="@color/new_ui_theme_text_gray"
+        android:textColor="@color/new_ui_theme_text_black"
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/gl2"
         app:layout_constraintTop_toBottomOf="@id/edit_appellation_input_wrapper" />
+
+    <TextView
+        android:id="@+id/change_current_pet_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:text="滑动切换宠物，点击宠物图片即可修改对应的宠物信息"
+        android:textColor="@color/new_ui_theme_text_gray"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/gl2"
+        app:layout_constraintTop_toBottomOf="@id/change_current_pet_title" />
 
     <android.support.constraint.Guideline
         android:id="@+id/gl4"

@@ -126,7 +126,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             new PetModel("ruiersi", getResources().getString(R.string.pet_name_9), "主人").save();
 
             editor.putBoolean("firstRun", true);
-            editor.putBoolean("petOn", true);
+            editor.putBoolean("petOn", false);
             editor.putBoolean("autoStart", false);
             editor.putInt("petSize", PetNumbers.INITIAL_PET_VIEW_SIZE);
 
