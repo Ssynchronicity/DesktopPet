@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.drawable.AnimationDrawable;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -421,11 +422,16 @@ public class FloatWindowView extends RelativeLayout {
                     final float endY = (MyWindowManager.screenHeight - getStatusBarHeight()) / 2;
                     final float startX1 = MyWindowManager.screenWidth - animview.getLayoutParams().width;
                     final float endX1 = dip2px(size * (float) (50.0 / 125.0));
+                    final long currentViewId = MyWindowManager.getCurrentViewId();
                     ValueAnimator runAnim = ValueAnimator.ofObject(new animEvaluator(), startX, endX);
                     runAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                         @Override
                         public void onAnimationUpdate(ValueAnimator animation) {
-                            if (MyWindowManager.getFloatWindow() == null) return;
+                            if (MyWindowManager.getFloatWindow() == null) {
+                                animation.cancel();
+                                return;
+                            }
+                            if (!MyWindowManager.isViewChanged(currentViewId)) return;
                             mParams.x = (int) (float) animation.getAnimatedValue();
                             windowManager.updateViewLayout(FloatWindowView.this, mParams);
                         }
@@ -440,11 +446,16 @@ public class FloatWindowView extends RelativeLayout {
                             ObjectAnimator object_rotate1 = ObjectAnimator.ofFloat(view, "rotationY", 180, 150, 120, 90, 60, 30, 0);
                             object_rotate1.setDuration(500);
                             object_rotate1.start();
+                            final long currentViewId = MyWindowManager.getCurrentViewId();
                             ValueAnimator runAnim1 = ValueAnimator.ofObject(new animEvaluator(), startY, endY);
                             runAnim1.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                 @Override
                                 public void onAnimationUpdate(ValueAnimator animation) {
-                                    if (MyWindowManager.getFloatWindow() == null) return;
+                                    if (MyWindowManager.getFloatWindow() == null) {
+                                        animation.cancel();
+                                        return;
+                                    }
+                                    if (!MyWindowManager.isViewChanged(currentViewId)) return;
                                     mParams.y = (int) (float) animation.getAnimatedValue();
                                     windowManager.updateViewLayout(FloatWindowView.this, mParams);
                                 }
@@ -463,11 +474,17 @@ public class FloatWindowView extends RelativeLayout {
                                 public void onAnimationEnd(Animator animation, boolean isReverse) {
                                     ChangeFrameAnim(9);
                                     ChangeMessageVisbility(true);
+                                    final long currentViewId = MyWindowManager.getCurrentViewId();
                                     ValueAnimator runAnim2 = ValueAnimator.ofObject(new animEvaluator(), startX1, endX1);
                                     runAnim2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                         @Override
                                         public void onAnimationUpdate(ValueAnimator animation) {
-                                            if (MyWindowManager.getFloatWindow() == null) return;
+                                            if (MyWindowManager.getFloatWindow() == null) {
+                                                animation.cancel();
+                                                return;
+                                            }
+                                            if (!MyWindowManager.isViewChanged(currentViewId))
+                                                return;
                                             mParams.x = (int) (float) animation.getAnimatedValue();
                                             windowManager.updateViewLayout(FloatWindowView.this, mParams);
                                         }
@@ -526,6 +543,7 @@ public class FloatWindowView extends RelativeLayout {
                             animAlarm2.setAnimationListener(new Animation.AnimationListener() {
                                 @Override
                                 public void onAnimationStart(Animation animation) {
+                                    Log.i("ValueAnim", "Start called");
                                 }
 
                                 @Override
@@ -557,11 +575,16 @@ public class FloatWindowView extends RelativeLayout {
                     final int friendy = mParams.y;
                     float startx = mParams.x;
                     float endx = mParams.x + animview.getLayoutParams().width;
+                    final long currentViewId4 = MyWindowManager.getCurrentViewId();
                     ValueAnimator runAnim1 = ValueAnimator.ofObject(new animEvaluator(), startx, endx);
                     runAnim1.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                         @Override
                         public void onAnimationUpdate(ValueAnimator animation) {
-                            if (MyWindowManager.getFloatWindow() == null) return;
+                            if (MyWindowManager.getFloatWindow() == null) {
+                                animation.cancel();
+                                return;
+                            }
+                            if (!MyWindowManager.isViewChanged(currentViewId4)) return;
                             mParams.x = (int) (float) animation.getAnimatedValue();
                             windowManager.updateViewLayout(FloatWindowView.this, mParams);
                         }
@@ -584,13 +607,19 @@ public class FloatWindowView extends RelativeLayout {
                     if (mParams.x < MyWindowManager.screenWidth - mParams.x) {
                         float startX2 = mParams.x;
                         float endX2 = 0;
+                        final long currentViewId3 = MyWindowManager.getCurrentViewId();
                         quietAnim = ValueAnimator.ofObject(new animEvaluator(), startX2, endX2);
                         quietAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                             @Override
                             public void onAnimationUpdate(ValueAnimator animation) {
-                                if (MyWindowManager.getFloatWindow() == null) return;
+                                if (MyWindowManager.getFloatWindow() == null) {
+                                    animation.cancel();
+                                    return;
+                                }
+                                // 返回false表明view被重置过
+                                if (!MyWindowManager.isViewChanged(currentViewId3)) return;
                                 mParams.x = (int) (float) animation.getAnimatedValue();
-                                windowManager.updateViewLayout(FloatWindowView.this, mParams);
+                                windowManager.updateViewLayout(MyWindowManager.getFloatWindow(), mParams);
                             }
                         });
                         quietAnim.setStartDelay(5000);
@@ -639,13 +668,19 @@ public class FloatWindowView extends RelativeLayout {
                     } else {
                         float startX2 = mParams.x;
                         float endX2 = MyWindowManager.screenWidth - animview.getLayoutParams().width;
+                        final long currentViewId2 = MyWindowManager.getCurrentViewId();
                         quietAnim = ValueAnimator.ofObject(new animEvaluator(), startX2, endX2);
                         quietAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                             @Override
                             public void onAnimationUpdate(ValueAnimator animation) {
-                                if (MyWindowManager.getFloatWindow() == null) return;
+                                if (MyWindowManager.getFloatWindow() == null) {
+                                    animation.cancel();
+                                    return;
+                                }
+                                if (!MyWindowManager.isViewChanged(currentViewId2)) return;
                                 mParams.x = (int) (float) animation.getAnimatedValue();
-                                windowManager.updateViewLayout(FloatWindowView.this, mParams);
+//                                windowManager.updateViewLayout(FloatWindowView.this, mParams);
+                                windowManager.updateViewLayout(MyWindowManager.getFloatWindow(), mParams);
                             }
                         });
                         quietAnim.setStartDelay(5000);

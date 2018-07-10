@@ -17,9 +17,12 @@ public class MyWindowManager {
     private static WindowManager.LayoutParams FriendParams;
     private static WindowManager mWindowManager;
     private static ActivityManager mActivityManager;
-    public  static  int screenWidth;
-    public  static  int screenHeight;
+    public static int screenWidth;
+    public static int screenHeight;
+
+    public static long viewId = 0;
     public static void createWindow(Context context) {
+        viewId++;
         WindowManager windowManager = getWindowManager(context);
         Display display = windowManager.getDefaultDisplay();
         Point size = new Point();
@@ -48,6 +51,7 @@ public class MyWindowManager {
             windowManager.addView(floatWindow, WindowParams);
         }
     }
+
     public static void updateWindow(Context context) {
         WindowManager windowManager = getWindowManager(context);
         windowManager.removeView(floatWindow);
@@ -69,7 +73,7 @@ public class MyWindowManager {
         if (friendWindow == null) {
             friendWindow = new FriendWindowView(context);
             if (FriendParams == null) {
-                FriendParams= new WindowManager.LayoutParams();
+                FriendParams = new WindowManager.LayoutParams();
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     FriendParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
                 } else {
@@ -90,6 +94,7 @@ public class MyWindowManager {
             windowManager.addView(friendWindow, FriendParams);
         }
     }
+
     public static void removeWindow(Context context) {
         if (floatWindow != null) {
             WindowManager windowManager = getWindowManager(context);
@@ -97,6 +102,7 @@ public class MyWindowManager {
             floatWindow = null;
         }
     }
+
     public static void removeFriend(Context context) {
         if (friendWindow != null) {
             WindowManager windowManager = getWindowManager(context);
@@ -104,23 +110,29 @@ public class MyWindowManager {
             friendWindow = null;
         }
     }
+
     public static boolean isWindowShowing() {
         return floatWindow != null;
     }
+
     private static WindowManager getWindowManager(Context context) {
         if (mWindowManager == null) {
             mWindowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         }
         return mWindowManager;
     }
+
     public static FloatWindowView getFloatWindow() {
+
         return floatWindow;
     }
+
     private static long getAvailableMemory(Context context) {
         ActivityManager.MemoryInfo mi = new ActivityManager.MemoryInfo();
         getActivityManager(context).getMemoryInfo(mi);
         return mi.availMem;
     }
+
     private static ActivityManager getActivityManager(Context context) {
         if (mActivityManager == null) {
             mActivityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
@@ -129,5 +141,12 @@ public class MyWindowManager {
     }
 
 
+    public static long getCurrentViewId() {
+        return viewId;
+    }
+
+    public static boolean isViewChanged(long viewIdOfAnimationStarted) {
+        return viewIdOfAnimationStarted == viewId;
+    }
 
 }
