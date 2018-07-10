@@ -82,7 +82,8 @@ public class NewThirdFragment extends Fragment {
                 if (b) {
                     getActivity().startService(handleFloatWindowService);
                 } else {
-                    getActivity().stopService(handleFloatWindowService);
+                    Intent intent = new Intent("StopFloatWindowService");
+                    localBroadcastManager.sendBroadcast(intent);
                 }
             }
         });

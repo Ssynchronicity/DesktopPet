@@ -173,6 +173,8 @@ public class FloatWindowView extends RelativeLayout {
     }
 
     public void ChangeFrameAnim(int i) {
+        // 如果被移除了，就不再执行逐帧动画
+        if (MyWindowManager.getFloatWindow() == null) return;
         switch (NowAnimNumber) {
             case 1:
                 walkDrawable.stop();
@@ -367,6 +369,7 @@ public class FloatWindowView extends RelativeLayout {
     }
 
     public void ChangeAttrAnim(String i, final String title, final String content) {
+        if (MyWindowManager.getFloatWindow() == null) return;
         if (NowAttrAnim.equals(i) && !i.equals("quiet")) {
             titleview.setText(title);
             contextview.setText(content);
@@ -422,6 +425,7 @@ public class FloatWindowView extends RelativeLayout {
                     runAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                         @Override
                         public void onAnimationUpdate(ValueAnimator animation) {
+                            if (MyWindowManager.getFloatWindow() == null) return;
                             mParams.x = (int) (float) animation.getAnimatedValue();
                             windowManager.updateViewLayout(FloatWindowView.this, mParams);
                         }
@@ -440,6 +444,7 @@ public class FloatWindowView extends RelativeLayout {
                             runAnim1.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                 @Override
                                 public void onAnimationUpdate(ValueAnimator animation) {
+                                    if (MyWindowManager.getFloatWindow() == null) return;
                                     mParams.y = (int) (float) animation.getAnimatedValue();
                                     windowManager.updateViewLayout(FloatWindowView.this, mParams);
                                 }
@@ -462,6 +467,7 @@ public class FloatWindowView extends RelativeLayout {
                                     runAnim2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                         @Override
                                         public void onAnimationUpdate(ValueAnimator animation) {
+                                            if (MyWindowManager.getFloatWindow() == null) return;
                                             mParams.x = (int) (float) animation.getAnimatedValue();
                                             windowManager.updateViewLayout(FloatWindowView.this, mParams);
                                         }
@@ -555,6 +561,7 @@ public class FloatWindowView extends RelativeLayout {
                     runAnim1.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                         @Override
                         public void onAnimationUpdate(ValueAnimator animation) {
+                            if (MyWindowManager.getFloatWindow() == null) return;
                             mParams.x = (int) (float) animation.getAnimatedValue();
                             windowManager.updateViewLayout(FloatWindowView.this, mParams);
                         }
@@ -581,6 +588,7 @@ public class FloatWindowView extends RelativeLayout {
                         quietAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                             @Override
                             public void onAnimationUpdate(ValueAnimator animation) {
+                                if (MyWindowManager.getFloatWindow() == null) return;
                                 mParams.x = (int) (float) animation.getAnimatedValue();
                                 windowManager.updateViewLayout(FloatWindowView.this, mParams);
                             }
@@ -635,6 +643,7 @@ public class FloatWindowView extends RelativeLayout {
                         quietAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                             @Override
                             public void onAnimationUpdate(ValueAnimator animation) {
+                                if (MyWindowManager.getFloatWindow() == null) return;
                                 mParams.x = (int) (float) animation.getAnimatedValue();
                                 windowManager.updateViewLayout(FloatWindowView.this, mParams);
                             }

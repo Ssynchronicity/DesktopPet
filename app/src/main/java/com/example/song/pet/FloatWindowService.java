@@ -3,13 +3,16 @@ package com.example.song.pet;
 import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -20,6 +23,15 @@ import java.util.TimerTask;
 public class FloatWindowService extends Service{
     private Handler handler = new Handler();
     private Timer timer;
+    private BroadcastReceiver onStopService = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action != null && action.equals("StopFloatWindowService")) {
+                stopSelf();
+            }
+        }
+    };
 
     @Nullable
     @Override
@@ -31,6 +43,8 @@ public class FloatWindowService extends Service{
     public void onCreate() {
         super.onCreate();
         startForeground(1,new Notification());
+        LocalBroadcastManager.getInstance(this).registerReceiver(onStopService, new IntentFilter("StopFloatWindowService"));
+
     }
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -45,9 +59,9 @@ public class FloatWindowService extends Service{
 
     @Override
     public void onDestroy() {
+        super.onDestroy();
         MyWindowManager.removeWindow(getApplicationContext());
         Log.i("FWService", "Stopped");
-        super.onDestroy();
         timer.cancel();
         timer = null;
     }
